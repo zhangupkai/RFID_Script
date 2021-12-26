@@ -22,10 +22,10 @@ public class ChangePowerConfig {
     public static String targetMask = "B023";
 
     // 采集的数据存放的位置
-    public static String filePath = "D:\\Coding\\RFID\\RFID_Scirpt\\data\\moveAntenna\\degree_180\\";
+    public static String filePath = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\degree_180\\";
 
     // 读取时间
-    public static long duration = 10000;
+    public static long duration = 20000;
 
     // 频率列表
     public static List<Double> freqList = Arrays.stream(getFreqList(920.625, 924.375)).boxed().collect(Collectors.toList());
@@ -38,9 +38,9 @@ public class ChangePowerConfig {
     public static double[] getFreqList(Double startFreq, Double endFreq) {
 
         // 根据最小间隔0.25Mhz从920.625 MHz to 924.375生成频率列表 共16个
-        double[] freqList = new double[(int) ((endFreq - startFreq) / 1.0 + 1)];
+        double[] freqList = new double[(int) ((endFreq - startFreq) / 0.5 + 1)];
         for (int i = 0; i < freqList.length; i++) {
-            freqList[i] = startFreq + i * 1.0;
+            freqList[i] = startFreq + i * 0.5;
         }
         return freqList;
     }

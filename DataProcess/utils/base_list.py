@@ -14,3 +14,12 @@ def get_freq_list():
         freq = 920.625 + x * 0.5
         freq_list.append(freq)
     return freq_list
+
+
+# 生成角度列表
+def get_degree_list():
+    degree_list = []
+    for x in range(0, 9):
+        degree = 0 + x * 45
+        degree_list.append(degree)
+    return degree_list

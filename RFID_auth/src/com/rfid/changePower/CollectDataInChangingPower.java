@@ -207,10 +207,18 @@ public class CollectDataInChangingPower {
 //                ArrayList<Double> freqList = new ArrayList<>(ChangePowerConfig.freqList);
 //                settings.setTxFrequenciesInMhz(freqList);
 //            }
+
+            // 不跳频
 //            ArrayList<Double> freqList = new ArrayList<>();
 //            freqList.add(ChangePowerConfig.freq);
+            // ----
+
+            // 跳频
             ArrayList<Double> freqList = new ArrayList<>(ChangePowerConfig.freqList);
+            // ----
+
             settings.setTxFrequenciesInMhz(freqList);
+//            freqList.clear();
 
             // 对标签返回信息做了规范
             reader.setTagReportListener(new TagReportListenerImplementation() {
@@ -236,22 +244,23 @@ public class CollectDataInChangingPower {
 
             //手动开始和结束扫描
             //开始扫描
-            System.out.println("在控制台敲击回车开始扫描.");
-            System.out.println("再次敲击回车结束扫描.");
-            Scanner s = new Scanner(System.in);
-            s.nextLine();
-            //System.out.println("Starting");
-            reader.start();
-            s = new Scanner(System.in);
-            s.nextLine();
-            reader.stop();
-            reader.disconnect();
-
-            // 定时自动结束
-//            Thread.sleep(ChangePowerConfig.duration);
+//            System.out.println("在控制台敲击回车开始扫描.");
+//            System.out.println("再次敲击回车结束扫描.");
+//            Scanner s = new Scanner(System.in);
+//            s.nextLine();
+//            //System.out.println("Starting");
+//            reader.start();
+//            s = new Scanner(System.in);
+//            s.nextLine();
 //            reader.stop();
-//            Thread.sleep(500);
 //            reader.disconnect();
+
+            reader.start();
+            // 定时自动结束
+            Thread.sleep(ChangePowerConfig.duration);
+            reader.stop();
+            Thread.sleep(500);
+            reader.disconnect();
 
 
 
@@ -271,8 +280,8 @@ public class CollectDataInChangingPower {
 
 //        File file = new File(ChangePowerConfig.filePath + timeFlag + filename + ".csv");
         File file = new File(ChangePowerConfig.filePath + filename
-                + ChangePowerConfig.targetMask + "(2)"
-//                + "_" + ChangePowerConfig.TxPowerinDbm
+                + ChangePowerConfig.targetMask + "(1)"
+                + "_" + ChangePowerConfig.TxPowerinDbm
 //                + "_" + ChangePowerConfig.freq
                 + ".csv");
         BufferedWriter bw = null;
@@ -292,11 +301,21 @@ public class CollectDataInChangingPower {
         }
     }
     public static void main(String[] args) {
-        collectHoppingPhase();
+//        collectHoppingPhase();
 //        String[] tags = new String[]{"A991", "A992", "A993", "A994", "A995"};
-//        String[] tags = new String[]{"B023"};
-//        String baseDir = "D:\\Coding\\RFID\\RFID_Scirpt\\data\\changeOrientation\\distance_17cm\\level_3\\";
-//        double[] freqList = ChangePowerConfig.getFreqList(924.375, 924.375);
+        String[] tags = new String[]{"B016", "B023"};
+        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\distance_60cm\\B016_B023\\degree_0\\";
+
+        for (String tag : tags) {
+            ChangePowerConfig.targetMask = tag;
+            ChangePowerConfig.filePath = baseDir;
+            collectHoppingPhase();
+        }
+
+        // 920.625 ~ +0.5 ~ 924.375
+//        double[] freqList = ChangePowerConfig.getFreqList(920.625, 924.375);
+//        // 24 ~ +1 ~ 31
+//        // 24
 //        double[] powerList = ChangePowerConfig.getPowerList(24.0, 24.0);
 //        for (String tag : tags) {
 //            ChangePowerConfig.targetMask = tag;
