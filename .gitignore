@@ -26,4 +26,4 @@ out/
 hs_err_pid*
 
 # Data #
-data/
+./data/

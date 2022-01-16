@@ -22,7 +22,7 @@ public class CollectDataInChangingPower {
      * @author Zhang QiHang.
      * @date 2021/11/5 16:28
      */
-    public static void collectNormalPhase() {
+    public static void collectNormalPhase(String count) {
         String hostname = ChangePowerConfig.hostname;
         // 记录总信息
         ArrayList<String> TagInfoArray = new ArrayList<String>();
@@ -124,7 +124,7 @@ public class CollectDataInChangingPower {
             reader.stop();
             reader.disconnect();
 
-            myWriteFile("normal", TagInfoArray);
+            myWriteFile("normal", TagInfoArray, count);
         } catch (OctaneSdkException ex) {
             System.out.println(ex.getMessage());
         } catch (Exception ex) {
@@ -134,7 +134,7 @@ public class CollectDataInChangingPower {
     }
 
 
-    public static void collectHoppingPhase() {
+    public static void collectHoppingPhase(String count) {
         String hostname = ChangePowerConfig.hostname;
         // 记录总信息
         ArrayList<String> TagInfoArray = new ArrayList<String>();
@@ -265,7 +265,7 @@ public class CollectDataInChangingPower {
 
 
 
-            myWriteFile("", TagInfoArray);
+            myWriteFile("", TagInfoArray, count);
         } catch (OctaneSdkException ex) {
             System.out.println(ex.getMessage());
         } catch (Exception ex) {
@@ -275,12 +275,12 @@ public class CollectDataInChangingPower {
     }
 
 
-    public static <T> void myWriteFile(String filename, ArrayList<T> content) {
+    public static <T> void myWriteFile(String filename, ArrayList<T> content, String count) {
         String timeFlag = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 
 //        File file = new File(ChangePowerConfig.filePath + timeFlag + filename + ".csv");
         File file = new File(ChangePowerConfig.filePath + filename
-                + ChangePowerConfig.targetMask + "(1)"
+                + ChangePowerConfig.targetMask + count
                 + "_" + ChangePowerConfig.TxPowerinDbm
 //                + "_" + ChangePowerConfig.freq
                 + ".csv");
@@ -304,13 +304,17 @@ public class CollectDataInChangingPower {
 //        collectHoppingPhase();
 //        String[] tags = new String[]{"A991", "A992", "A993", "A994", "A995"};
         String[] tags = new String[]{"B016", "B023"};
-        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\distance_60cm\\B016_B023\\degree_0\\";
+//        String[] tags = new String[]{"B023"};
+        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\distance_70cm\\B016_B023\\degree_360\\";
 
-        for (String tag : tags) {
-            ChangePowerConfig.targetMask = tag;
-            ChangePowerConfig.filePath = baseDir;
-            collectHoppingPhase();
+        for (int count = 1; count <= 15; ++count) {
+            for (String tag : tags) {
+                ChangePowerConfig.targetMask = tag;
+                ChangePowerConfig.filePath = baseDir;
+                collectHoppingPhase("(" + count + ")");
+            }
         }
+
 
         // 920.625 ~ +0.5 ~ 924.375
 //        double[] freqList = ChangePowerConfig.getFreqList(920.625, 924.375);

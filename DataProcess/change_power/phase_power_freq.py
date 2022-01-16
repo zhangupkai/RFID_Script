@@ -69,13 +69,13 @@ def unwrap(raw_vector, cutoff=math.pi):
 处理原始数据，按距离、标签和角度存储数据
 """
 if __name__ == '__main__':
-    distance = 'distance_60cm'
+    distance = 'distance_40cm'
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
     # degrees = ['degree_90']
     # group = 'group4'
-    tag = 'B023'
-    tag_in_path = 'B023(2)'
+    tag = 'B022'
+    tag_in_path = 'B022'
 
     # 生成功率列表
     power_list = []

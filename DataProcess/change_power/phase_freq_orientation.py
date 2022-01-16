@@ -15,12 +15,12 @@ def normalization(input_data):
 得到相位随频率、标签角度变化的数据并画出热力图
 """
 if __name__ == '__main__':
-    distance = 'distance_60cm'
+    distance = 'distance_50cm'
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
     # degrees = ['degree_90']
     # group = 'group4'
-    tag = 'B016(2)'
+    tag = 'B023'
     bath_dir = 'data/set_four_orientation/' + distance + '/'
 
     # 生成频率列表

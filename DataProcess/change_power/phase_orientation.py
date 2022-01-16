@@ -1,3 +1,4 @@
+import matplotlib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,13 +6,14 @@ from scipy import interpolate
 from myunwrap import *
 from pre_purpose import normalization
 from my_dtw import *
+from base_list import *
 
 
 """
 同一距离下，不同标签的 相位-角度 曲线图
 """
 if __name__ == '__main__':
-    distance = '50cm'
+    distance = '60cm'
     # tags = ['B023', 'B022', 'B016']
     tags = ['B023', 'B016']
     # colors = ['blue', 'red', 'black']
@@ -28,13 +30,15 @@ if __name__ == '__main__':
 
     i = 0
     phase_mat = []
+    matplotlib.rcParams.update({'font.size': 12})  # 改变所有字体大小，改变其他性质类似
     for tag in tags:
 
         file_path = bath_dir + tag + '.csv'
 
         data = np.array(pd.read_csv(file_path, header=None))
         # 取第一列数据（频率为920.875，整个csv文件中所有数据均为功率24dBm下测量）
-        phase_list = data[:, 0]
+        # phase_list = data[:, 0]
+        phase_list = data[0, :]
 
         # j = 0
         # for degree in degrees:
@@ -47,21 +51,21 @@ if __name__ == '__main__':
 
         # phase_mat[i, ] = phase_list
         # 归一化
-        phase_list = normalization(phase_list)
-        x = [0, 45, 90, 135, 180, 225, 270, 315, 360]
-        x_new = np.arange(0, 360, 4.5)
-        func = interpolate.interp1d(x, phase_list, kind='cubic')
-        y_new = func(x_new)
-
-        phase_mat.append(y_new)
-
-        plt.plot(x_new, y_new, marker='o', markersize=3, color=colors[i], label=tag)
+        # phase_list = phase_list
+        # x = [0, 45, 90, 135, 180, 225, 270, 315, 360]
+        # x_new = np.arange(0, 360, 4.5)
+        # func = interpolate.interp1d(x, phase_list, kind='cubic')
+        # y_new = func(x_new)
+        #
+        # phase_mat.append(phase_list)
+        # plt.plot(x_new, y_new, marker='o', markersize=3, color=colors[i], label=tag)
+        plt.plot(get_freq_list(), phase_list, marker='o', markersize=3, color=colors[i], label=tag)
 
         i += 1
 
     plt.title("Distance " + distance)
-    plt.xlabel("Orientation")
-    plt.ylabel("Phase")
+    plt.xlabel("Freq")
+    plt.ylabel("Degree")
     plt.legend()
     plt.show()
 
