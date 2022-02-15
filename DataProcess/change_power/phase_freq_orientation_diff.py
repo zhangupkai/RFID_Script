@@ -8,7 +8,7 @@ import seaborn as sns
 """
 if __name__ == '__main__':
     distance = 'distance_40cm'
-    bath_dir = 'data/set_four_orientation/' + distance + '/phase_freq_orientation/'
+    bath_dir = 'phase_time_sequence/set_four_orientation/' + distance + '/phase_freq_orientation/'
 
     tag1 = 'B016'
     tag2 = 'B023(2)'

@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # degrees = ['degree_90']
     # group = 'group4'
     tag = 'B023'
-    bath_dir = 'data/set_four_orientation/' + distance + '/'
+    bath_dir = 'phase_time_sequence/set_four_orientation/' + distance + '/'
 
     # 生成频率列表
     freq_list = []
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         data = np.array(pd.read_csv(file_path, header=None))
         # 取第一行数据（功率为24dBm），并unwarp
         phase_mat[i, :] = unwrap(data[0, :])
-        # phase_mat[i, :] = data[0, :]
+        # phase_mat[i, :] = phase_time_sequence[0, :]
         i += 1
 
     # phase_mat_nonzero = phase_mat[np.nonzero(phase_mat)]

@@ -23,7 +23,7 @@ if __name__ == '__main__':
     i = 0
     for name, group in grouped:
         plt.scatter(group['timestamp'], group['phase'], c=colors[i], alpha=0.6)
-        save_path = bath_dir + 'data'
+        save_path = bath_dir + 'phase_time_sequence'
         group.to_csv()
         i += 1
 

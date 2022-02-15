@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # colors = ['blue', 'red', 'black']
     colors = ['red', 'blue']
 
-    bath_dir = 'data/set_four_orientation/distance_' + distance + '/' + 'phase_freq_orientation/'
+    bath_dir = 'phase_time_sequence/set_four_orientation/distance_' + distance + '/' + 'phase_freq_orientation/'
 
     # phase_mat = np.zeros((3, 9))
 
@@ -37,15 +37,15 @@ if __name__ == '__main__':
 
         data = np.array(pd.read_csv(file_path, header=None))
         # 取第一列数据（频率为920.875，整个csv文件中所有数据均为功率24dBm下测量）
-        # phase_list = data[:, 0]
+        # phase_list = phase_time_sequence[:, 0]
         phase_list = data[0, :]
 
         # j = 0
         # for degree in degrees:
         #     file_path = bath_dir + tag + '_' + degree + '.csv'
-        #     data = np.array(pd.read_csv(file_path, header=None))
+        #     phase_time_sequence = np.array(pd.read_csv(file_path, header=None))
         #     # 取第一行第一列数据（功率为24dBm，频率为920.875）
-        #     phase_list.append(data[0, 0])
+        #     phase_list.append(phase_time_sequence[0, 0])
             # phase_mat[i, j] =phase_mean
             # j += 1
 

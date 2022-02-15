@@ -28,11 +28,12 @@ def hampel(X):
         xmedian.append(medj)
     xmad = np.array(xmad)
     xmedian = np.array(xmedian)
-    scale = 1.4826  # 缩放
+    scale = 0.4826  # 缩放
     xsigma = scale * xmad
     xi = ~(np.abs(X - xmedian) <= nsigma * xsigma)  # 找出离群点（即超过nsigma个标准差）
 
     # 将离群点替换为中为数值
     xf = X.copy()
     xf[xi] = xmedian[xi]
+    # xf[xi] = None
     return xf

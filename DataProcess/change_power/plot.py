@@ -13,7 +13,7 @@ def phase_heat():
     group_name = 'Group1 '
     tag = 'B023'
     phase_mat = np.array(
-        pd.read_csv('data/set_four_orientation/' + distance + '/' + tag + '_' + degree + '.csv', header=None))
+        pd.read_csv('phase_time_sequence/set_four_orientation/' + distance + '/' + tag + '_' + degree + '.csv', header=None))
 
     phase_mat_nonzero = phase_mat[np.nonzero(phase_mat)]
     min_phase = np.min(phase_mat_nonzero)
@@ -61,7 +61,7 @@ def phase_heat():
     plt.rc('font', size=12)
     sns.heatmap(phase_mat, vmin=min_phase, vmax=max_phase, cmap='Blues', xticklabels=freq_list, yticklabels=power_list)
     plt.title('Phase ' + distance + ' ' + tag + ' ' + degree)
-    # plt.savefig('data/set_four_orientation/' + distance + '/' + tag + '_' + degree + '.jpg')
+    # plt.savefig('phase_time_sequence/set_four_orientation/' + distance + '/' + tag + '_' + degree + '.jpg')
     plt.show()
 
 

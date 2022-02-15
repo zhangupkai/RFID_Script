@@ -90,7 +90,7 @@ if __name__ == '__main__':
         freq_list.append(freq)
 
     for degree in degrees:
-        bath_dir = '../../data/changePower2/SetFourOrientation/' + distance + '/' + tag_in_path + '/' + degree + '/'
+        bath_dir = '../../phase_time_sequence/changePower2/SetFourOrientation/' + distance + '/' + tag_in_path + '/' + degree + '/'
         phase_mat = np.zeros((8, 8))
         i = 0
         for power in power_list:
@@ -112,5 +112,5 @@ if __name__ == '__main__':
         # unwrap_phase_list = unwrap(phase_mat.flatten())
         # unwrap_phase_mat = np.array(unwrap_phase_list).reshape(8, 8)
 
-        np.savetxt('data/set_four_orientation/' + distance + '/' + tag_in_path + '_' + degree + '.csv', phase_mat,
+        np.savetxt('phase_time_sequence/set_four_orientation/' + distance + '/' + tag_in_path + '_' + degree + '.csv', phase_mat,
                    delimiter=',')

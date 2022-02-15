@@ -19,16 +19,18 @@ public class ChangePowerConfig {
     // 阅读器模式
     public static String mode = "MaxThroughput";
     // 标签过滤设定
-    public static String targetMask = "B023";
+    public static String targetMask1 = "";
+    public static String targetMask2 = "";
 
     // 采集的数据存放的位置
     public static String filePath = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\degree_180\\";
 
-    // 读取时间
-    public static long duration = 20000;
+    // 读取时间 10min
+    public static long duration = 10 * 60 * 1000;
 
     // 频率列表
     public static List<Double> freqList = Arrays.stream(getFreqList(920.625, 924.375)).boxed().collect(Collectors.toList());
+//    public static List<Double> freqList = Arrays.stream(getFreqList(920.625, 920.625)).boxed().collect(Collectors.toList());
 
 //    public static double[] freqList = getFreqList(920.625, 924.375);
 
@@ -37,7 +39,8 @@ public class ChangePowerConfig {
 
     public static double[] getFreqList(Double startFreq, Double endFreq) {
 
-        // 根据最小间隔0.25Mhz从920.625 MHz to 924.375生成频率列表 共16个
+        // (根据最小间隔0.25Mhz从920.625 MHz to 924.375生成频率列表 共16个)
+        // 根据最小间隔0.5Mhz从920.625 MHz to 924.375生成频率列表 共8个
         double[] freqList = new double[(int) ((endFreq - startFreq) / 0.5 + 1)];
         for (int i = 0; i < freqList.length; i++) {
             freqList[i] = startFreq + i * 0.5;

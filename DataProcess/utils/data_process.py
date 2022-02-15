@@ -85,12 +85,12 @@ def auto_tag_process(df):
     for i in range(len(df)):
         if df.iloc[i]["freq"] not in freq_phase_dict:
             freq_phase_dict[df.iloc[i]["freq"]] = {}
-            freq_phase_dict[df.iloc[i]["freq"]]["data"] = []
-            freq_phase_dict[df.iloc[i]["freq"]]["data"].append(df.iloc[i]["phase"])
-        freq_phase_dict[df.iloc[i]["freq"]]["data"].append(df.iloc[i]["phase"])
+            freq_phase_dict[df.iloc[i]["freq"]]["phase_time_sequence"] = []
+            freq_phase_dict[df.iloc[i]["freq"]]["phase_time_sequence"].append(df.iloc[i]["phase"])
+        freq_phase_dict[df.iloc[i]["freq"]]["phase_time_sequence"].append(df.iloc[i]["phase"])
     # 计算所有频率前6个与参考频率后6个的平均相位，传回字典
     for freq in freq_phase_dict.keys():
-        freq_phase_dict[freq]["mean_phase"] = np.mean(freq_phase_dict[freq]["data"][-6:])
+        freq_phase_dict[freq]["mean_phase"] = np.mean(freq_phase_dict[freq]["phase_time_sequence"][-6:])
     # 计算所有的参数值
     pre_channel = ""
     for freq in freq_phase_dict.keys():

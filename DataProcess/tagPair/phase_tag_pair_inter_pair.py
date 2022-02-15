@@ -18,10 +18,10 @@ if __name__ == '__main__':
     # tag1 = 'B016'
     # tag2 = 'B023'
     count = ''
-    bath_dir = 'data/distance_' + distance + '/' + tag_pair + '/'
+    bath_dir = 'phase_time_sequence/distance_' + distance + '/' + tag_pair + '/'
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
-    sava_path = 'data/distance_' + distance + '/' + tag_pair + '/' + tag_pair + '.csv'
+    sava_path = 'phase_time_sequence/distance_' + distance + '/' + tag_pair + '/' + tag_pair + '.csv'
     phase_freq_degree = np.zeros((9, 8))
 
     file_path1 = 'data/distance_60cm/B016_AA03/B016_AA03.csv'

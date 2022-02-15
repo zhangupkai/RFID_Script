@@ -31,7 +31,7 @@ if __name__ == '__main__':
             j += 1
         i += 1
 
-    np.savetxt('data/set_two_25-30/group6.csv', X=phase_mat, delimiter=',')
+    np.savetxt('phase_time_sequence/set_two_25-30/group6.csv', X=phase_mat, delimiter=',')
 
     plt.title('Phase-Power')
     plt.plot(power_list, phase_mat[0, :], label='A991')
@@ -42,9 +42,9 @@ if __name__ == '__main__':
     plt.legend()
     plt.show()
 
-    # data_A991 = np.array(pd.read_csv('../../data/changePower/changePowerA991_30.0.csv'))
-    # data_A993 = np.array(pd.read_csv('../../data/changePower/changePowerA993_30.0.csv'))
-    # data_A995 = np.array(pd.read_csv('../../data/changePower/changePowerA995_30.0.csv'))
+    # data_A991 = np.array(pd.read_csv('../../phase_time_sequence/changePower/changePowerA991_30.0.csv'))
+    # data_A993 = np.array(pd.read_csv('../../phase_time_sequence/changePower/changePowerA993_30.0.csv'))
+    # data_A995 = np.array(pd.read_csv('../../phase_time_sequence/changePower/changePowerA995_30.0.csv'))
     #
     # x_len = min(len(data_A991[:, 2]), len(data_A993[:, 2]), len(data_A995[:, 2]))
     # x = range(x_len - 1)

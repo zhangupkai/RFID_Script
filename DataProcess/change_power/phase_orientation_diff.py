@@ -6,7 +6,7 @@ import copy
 
 if __name__ == '__main__':
     distance = '50cm'
-    bath_dir = 'data/set_four_orientation/distance_' + distance + '/'
+    bath_dir = 'phase_time_sequence/set_four_orientation/distance_' + distance + '/'
     data = np.array(pd.read_csv(bath_dir + 'B016_B023_B023(2).csv', header=None))
 
     diff_B016_B023 = data[0, ] - data[2, ]
