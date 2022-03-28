@@ -25,8 +25,8 @@ public class ChangePowerConfig {
     // 采集的数据存放的位置
     public static String filePath = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\degree_180\\";
 
-    // 读取时间 10min
-    public static long duration = 10 * 60 * 1000;
+    // 读取时间 6min
+    public static long duration = 6 * 60 * 1000;
 
     // 频率列表
     public static List<Double> freqList = Arrays.stream(getFreqList(920.625, 924.375)).boxed().collect(Collectors.toList());

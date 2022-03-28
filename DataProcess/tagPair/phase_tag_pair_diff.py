@@ -20,20 +20,20 @@ def deal_data(count1, count2):
     # distance = '60cm_left_20cm'
     # distance = 'vertical'
 
-    # tag_pair = 'B034_B029'
-    # tag1 = 'B034'
-    # tag2 = 'B029'
+    tag_pair = 'B034_B029'
+    tag1 = 'B034'
+    tag2 = 'B029'
 
     # tag_pair = 'B016_B023'
     # tag1 = 'B016'
     # tag2 = 'B023'
 
-    tag_pair = 'B016_AA03'
-    tag1 = 'B016'
-    tag2 = 'AA03'
+    # tag_pair = 'B016_AA03'
+    # tag1 = 'B016'
+    # tag2 = 'AA03'
 
     # count = '(2)'
-    bath_dir = 'phase_time_sequence/fixed_degree/' + tag_pair + '/'
+    bath_dir = 'data/fixed_degree/' + tag_pair + '/'
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
     # sava_path = 'phase_time_sequence/distance_' + distance + '/' + tag_pair + '/' + tag_pair + count1 + count2
@@ -68,6 +68,6 @@ def deal_data(count1, count2):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c1 in range(2, 3):
-        for c2 in range(2, 3):
+    for c1 in range(2, 16):
+        for c2 in range(2, 16):
             deal_data('({c1})'.format(c1=c1), '({c2})'.format(c2=c2))

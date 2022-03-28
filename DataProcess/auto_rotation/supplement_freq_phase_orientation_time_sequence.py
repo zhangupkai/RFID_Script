@@ -12,32 +12,50 @@ from locate_degree_main import locate_degree
 
 # tag1 = 'B034'
 # tag2 = 'B029'
+# tag1 = 'B016'
+# tag2 = 'AA03'
 tag1 = 'B016'
-tag2 = 'AA03'
-count = 23
-# freq = 920.625
+tag2 = 'B023'
+count = 101
+# 转动周期，微秒级
+circle_time = 108520704
 
 # 最终得到的相位矩阵，9个角度（9行），8个频率（8列）
 phase_mat = np.zeros((9, 8))
 
 col = 0
-for freq in get_freq_list():
+for freq in [920.625]:
+# for freq in get_freq_list():
     bath_dir = f'phase_time_sequence/{tag1}_{tag2}({count})_{freq}.csv'
     data = np.array(pd.read_csv(bath_dir, header=None))
     timestamp = data[:, 0]
     phase = data[:, 1]
-    size = timestamp.shape[0]
-
-    # plt.title('Phase Orientation Time (Before Denoising)')
-    # plt.scatter(timestamp, phase, alpha=0.4, s=0.6)
-    # plt.show()
+    # phase_timestamp = dict(zip(timestamp, phase))
+    # size = timestamp.shape[0]
 
     # 去除异常值
     phase_after = hampel(phase)
 
-    # plt.title('Phase Orientation Time (After Denoising)')
-    # plt.scatter(timestamp, phase_after, alpha=0.4, s=0.6)
-    # plt.show()
+    """
+    # TODO 提取特征点之前 - 根据周期补全数据
+    #
+    to_append_dict = {}
+    for key_timestamp, value_phase in phase_timestamp.items():
+        # 当前是第几个周期（从第0个开始）
+        cur_circle = (key_timestamp - timestamp[0]) // circle_time
+        # print('cur circle: ', cur_circle)
+        if cur_circle == 1:
+            to_append_dict[key_timestamp - circle_time * cur_circle] = value_phase
+
+    # 从第二个周期开始的数据补充第一个周期内的数据
+    phase_timestamp.update(to_append_dict)
+    # 字典中的数据按照时间戳顺序再进行一次升序排序
+    sorted(phase_timestamp.keys())
+
+    plt.title(f'Phase Orientation Time (Tag Pair freq_{freq} {tag1}_{tag2}_c{count})')
+    plt.scatter(x=phase_timestamp.keys(), y=phase_timestamp.values(), alpha=0.4, s=0.6)
+    plt.show()
+    """
 
     # 时间戳间隔
     timestamp_interval = []
@@ -65,18 +83,45 @@ for freq in get_freq_list():
         split_phase_median.append(np.median(split_phase[index]))
         split_timestamp_median.append(np.median(split_timestamp[index]))
 
-    # plt.title('Phase Orientation Time (Extract Feature Point)')
-    # plt.scatter(x=split_timestamp_median, y=split_phase_median, alpha=0.8, s=10)
-    # plt.show()
+    plt.title('Phase Orientation Time (Extract Feature Point)')
+    plt.scatter(x=split_timestamp_median, y=split_phase_median, alpha=0.8, s=10)
+    plt.show()
+
+    # TODO Start 对特征提取之后的数据点 依据周期进行数据补充
+    phase_timestamp = dict(zip(split_timestamp_median, split_phase_median))
+    # 需要在添加到phase_timestamp字典中的数据
+    to_append_dict = {}
+    # 第一个数据点所处的时间戳
+    start_timestamp = split_timestamp_median[0]
+    # 判断这一组数据一共历经了几个周期(circle_time)
+    T_sum = int((split_timestamp_median[len(split_timestamp_median) - 1] - start_timestamp) // circle_time + 1)
+    for k_timestamp, v_phase in phase_timestamp.items():
+        # 当前数据点属于第几个周期（下标从0开始）
+        T_cur = int((k_timestamp - start_timestamp) // circle_time)
+        # 将数据点复制到其余周期中
+        for T_iter in range(0, T_sum):
+            if T_iter == T_cur:
+                continue
+            to_append_dict[k_timestamp + (T_iter - T_cur) * circle_time] = v_phase
+
+    # 将to_append_dict中的数据加入到phase_timestamp字典中
+    phase_timestamp.update(to_append_dict)
+
+    plt.title('Phase Orientation Time (Add Periodic Feature)')
+    plt.scatter(x=phase_timestamp.keys(), y=phase_timestamp.values(), alpha=0.8, s=8)
+    plt.show()
+
+    # TODO End 对特征提取之后的数据点 依据周期进行数据补充
 
     # 插值后x轴，时间戳轴长度*8 Because: 一共8个频率数据
     timestamp_new = np.linspace(timestamp[0], timestamp[timestamp.shape[0] - 1], timestamp.shape[0] * 8)
 
+    print('k:', list(phase_timestamp.keys()), ' v:', list(phase_timestamp.values()))
     # 数据插值
-    f = interpolate.interp1d(split_timestamp_median, split_phase_median, kind='cubic', fill_value="extrapolate")
+    f = interpolate.interp1d(list(phase_timestamp.keys()), list(phase_timestamp.values()), kind='cubic', fill_value="extrapolate")
     phase_new = f(timestamp_new)
-    plt.title('Phase Orientation Time (Direct Interpolation)')
-    plt.scatter(x=split_timestamp_median, y=split_phase_median, alpha=0.8, s=10)
+    plt.title(f'Phase Orientation Time (Interpolation) {tag1}_{tag2} c{count}')
+    plt.scatter(x=phase_timestamp.keys(), y=phase_timestamp.values(), alpha=0.8, s=10)
     plt.plot(timestamp_new, phase_new)
     plt.show()
 

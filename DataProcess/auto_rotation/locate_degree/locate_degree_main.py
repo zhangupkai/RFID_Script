@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 from locate_degree_B034_B029 import locate_degree_B034_B029
 from locate_degree_B016_AA03 import locate_degree_B016_AA03
+from locate_degree_B016_B023 import locate_degree_B016_B023
 
 
 def locate_degree(phase, tag_pair):
@@ -11,3 +12,5 @@ def locate_degree(phase, tag_pair):
         return locate_degree_B034_B029(phase)
     elif tag_pair == 'B016_AA03':
         return locate_degree_B016_AA03(phase)
+    elif tag_pair == 'B016_B023':
+        return locate_degree_B016_B023(phase)

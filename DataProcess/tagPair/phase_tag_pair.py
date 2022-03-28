@@ -11,9 +11,9 @@ import sys
 import math
 
 
-# def deal_data(count):
-if __name__ == '__main__':
-    count = '(2)'
+def deal_data(count):
+# if __name__ == '__main__':
+#     count = '(2)'
     # distance = '70cm'
     # distance = '50cm_right_10cm'
     # distance = '60cm_left_20cm'
@@ -23,18 +23,18 @@ if __name__ == '__main__':
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
 
-    # tag_pair = 'B034_B029'
-    tag_pair = 'B016_AA03'
+    tag_pair = 'B034_B029'
+    # tag_pair = 'B016_AA03'
     # tag_pair = 'B016_B023'
 
     # tag = 'B034'
-    # tag = 'B029'
-    tag = 'B016'
+    tag = 'B029'
+    # tag = 'B016'
     # tag = 'B023'
     # tag = 'AA03'
 
     # count = '(1)'
-    sava_path = 'phase_time_sequence/fixed_degree/' + tag_pair + '/' + tag + count
+    sava_path = 'data/fixed_degree/' + tag_pair + '/' + tag + count
     phase_freq_degree = np.zeros((9, 8))
 
     # colors = ['red', 'blue', 'green', 'yellow']
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     np.savetxt(sava_path + '.csv', phase_freq_degree, delimiter=',')
 
 
-# if __name__ == '__main__':
-#     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-#     for c in range(1, 2):
-#         deal_data('(' + str(c) + ')')
+if __name__ == '__main__':
+    # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
+    for c in range(2, 16):
+        deal_data('(' + str(c) + ')')
