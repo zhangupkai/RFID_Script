@@ -13,128 +13,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class CollectDataInChangingPower {
-    /**
-     * 普通采集相位的程序
-     *
-     * @param
-     * @return
-     * @author Zhang QiHang.
-     * @date 2021/11/5 16:28
-     */
-//    public static void collectNormalPhase(String count) {
-//        String hostname = ChangePowerConfig.hostname;
-//        // 记录总信息
-//        ArrayList<String> TagInfoArray = new ArrayList<String>();
-//        try {
-//            if (hostname == null) {
-//                throw new Exception("Must specify the hostname property'");
-//            }
-//
-//            // 创建阅读器对象
-//            ImpinjReader reader = new ImpinjReader();
-//
-//            // 进行连接
-//            while (!reader.isConnected()) {
-//                try {
-//                    System.out.println("Connecting to " + hostname);
-//                    reader.connect(hostname);
-//                } catch (OctaneSdkException e1) {
-//                    System.out.println("******************************************************************" + e1.getMessage());
-//                } catch (Exception e2) {
-//                    System.out.println("******************************************************************" + e2.getMessage());
-//                    e2.printStackTrace(System.out);
-//                }
-//            }
-//            // 包含阅读器的功能和特性
-//            FeatureSet f = reader.queryFeatureSet();
-//            String readerModel = f.getReaderModel().toString();//SpeedwayR420 SpeedwayR220
-//
-//
-//            // Setting类为阅读器的配置类，获取阅读器的默认设置，如readerMode，searchMode，filters
-//            Settings settings = reader.queryDefaultSettings();
-//
-//            System.out.println(readerModel);
-//
-//            // 可以对标签进行一系列的调整
-//            ReportConfig report = settings.getReport();
-//            report.setIncludeAntennaPortNumber(true);
-//            report.setIncludePeakRssi(true);
-//            report.setIncludePhaseAngle(true);
-//            report.setIncludeLastSeenTime(true);
-//            report.setIncludeChannel(true);
-//            report.setMode(ReportMode.Individual);// 每个标签单独作为一个report返回
-//            report.setMode(ReportMode.Individual);
-//
-//            // 设置过滤标签设置
-//            TagFilter filter1 = new TagFilter();
-//            filter1.setMemoryBank(MemoryBank.Epc);
-//            filter1.setBitPointer(BitPointers.Epc);
-//            filter1.setBitCount(4L * ChangePowerConfig.targetMask.length());
-//            filter1.setTagMask(ChangePowerConfig.targetMask);
-//            filter1.setFilterOp(TagFilterOp.Match);
-//            FilterSettings filterSettings = new FilterSettings();
-//            filterSettings.setTagFilter1(filter1);
-//            filterSettings.setMode(TagFilterMode.OnlyFilter1);
-//            settings.setFilters(filterSettings);
-//
-//            String mode = ReadPrintUtils.chooseMode(readerModel, ChangePowerConfig.mode);
-//            settings.setReaderMode(ReaderMode.valueOf(mode));
-//
-//            // 可以对天线进行一系列的调整
-//            AntennaConfigGroup antennas = settings.getAntennas();
-//            antennas.disableAll();
-//            antennas.enableById(new short[]{1});
-//            antennas.getAntenna((short) 1).setIsMaxRxSensitivity(false);
-//            antennas.getAntenna((short) 1).setIsMaxTxPower(false);
-//            antennas.getAntenna((short) 1).setTxPowerinDbm(ChangePowerConfig.TxPowerinDbm);
-//            antennas.getAntenna((short) 1).setRxSensitivityinDbm(-70);
-//
-//            // 对标签返回信息做了规范
-//            reader.setTagReportListener(new TagReportListenerImplementation() {
-//                @Override
-//                public void onTagReported(ImpinjReader reader0, TagReport report0) {
-//                    // tags为得到的所有标签
-//                    List<Tag> tags = report0.getTags();
-//                    for (Tag t : tags) {
-//                        if (ChangePowerConfig.targetMask.equals(t.getEpc().toString())) {
-//                            String temp = t.getEpc().toString() + "," + t.getChannelInMhz() + ","
-//                                    + t.getLastSeenTime().ToString() + "," + t.getPhaseAngleInRadians()
-//                                    + "," + t.getPeakRssiInDbm();
-//                            System.out.println(temp);
-//                            TagInfoArray.add(temp);
-//                        }
-//                        // 如果标签阵列中有当前监听到的标签
-//                    }
-//                }
-//            });
-//
-//            // 直接更改不会生效，必须进行apply
-//            reader.applySettings(settings);
-//
-//            //开始扫描
-//            System.out.println("在控制台敲击回车开始扫描.");
-//            System.out.println("再次敲击回车结束扫描.");
-//            Scanner s = new Scanner(System.in);
-//            s.nextLine();
-//            //System.out.println("Starting");
-//            reader.start();
-//            s = new Scanner(System.in);
-//            s.nextLine();
-//            reader.stop();
-//            reader.disconnect();
-//
-//            myWriteFile("normal", TagInfoArray, count);
-//        } catch (OctaneSdkException ex) {
-//            System.out.println(ex.getMessage());
-//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//            ex.printStackTrace(System.out);
-//        }
-//    }
+public class CollectDataInChangingPower extends Thread{
 
+    private String count;
+    private volatile boolean flag = false;
 
-    public static void collectHoppingPhase(String count) {
+    @Override
+    public void run() {
         String hostname = ChangePowerConfig.hostname;
         // 记录总信息
         ArrayList<String> TagInfoArray = new ArrayList<String>();
@@ -162,7 +47,19 @@ public class CollectDataInChangingPower {
             FeatureSet f = reader.queryFeatureSet();
             String readerModel = f.getReaderModel().toString();//SpeedwayR420 SpeedwayR220
 
-            for (double freq : ChangePowerConfig.getFreqList(920.625, 924.125)) {
+            // 频率列表
+            double[] freqList = ChangePowerConfig.getFreqList(920.625, 924.125);
+            int freqIndex = 0;
+            while (!flag){
+                // 按顺序访问频率
+                double freq = freqList[freqIndex];
+                freqIndex++;
+                if (freqIndex > 7) {
+                    freqIndex = 0;
+                }
+                // 随机选择持续时间
+                long stayTime = ChangePowerConfig.stayTime;
+
                 // Setting类为阅读器的配置类，获取阅读器的默认设置，如readerMode，searchMode，filters
                 Settings settings = reader.queryDefaultSettings();
 
@@ -217,12 +114,11 @@ public class CollectDataInChangingPower {
                 */
 
                 // 外层循环跳频
-                ArrayList<Double> freqList = new ArrayList<>();
-                freqList.add(freq);
-                settings.setTxFrequenciesInMhz(freqList);
+                ArrayList<Double> freqs = new ArrayList<>();
+                freqs.add(freq);
+                settings.setTxFrequenciesInMhz(freqs);
                 // freqList.clear();
-                // 直接更改不会生效，必须进行apply
-                reader.applySettings(settings);
+
 
                 // 对标签返回信息做了规范
                 reader.setTagReportListener(new TagReportListenerImplementation() {
@@ -235,7 +131,7 @@ public class CollectDataInChangingPower {
                                     || ChangePowerConfig.targetMask2.equals(t.getEpc().toString())) {
                                 String temp = t.getEpc().toString() + "," + t.getChannelInMhz() + ","
                                         + t.getLastSeenTime().ToString() + "," + (2*Math.PI - t.getPhaseAngleInRadians())
-                                        + "," + t.getPeakRssiInDbm();
+                                        + "," + t.getPeakRssiInDbm() + ","  + freq;
                                 System.out.println(temp);
                                 TagInfoArray.add(temp);
                             }
@@ -244,7 +140,8 @@ public class CollectDataInChangingPower {
                     }
                 });
 
-
+                // 直接更改不会生效，必须进行apply
+                reader.applySettings(settings);
 
                 /*
                 // Scanner Mode 1 Start：手动开始和结束扫描
@@ -267,18 +164,17 @@ public class CollectDataInChangingPower {
                 // Scanner Mode 2 Start：自动开始，定时结束
                 reader.start();
                 // 定时自动结束
-                Thread.sleep(ChangePowerConfig.duration);
+                // 单个频率持续的世界
+                Thread.sleep(ChangePowerConfig.stayTime);
                 reader.stop();
-                Thread.sleep(500);
+//                Thread.sleep(500);
             }
+
 
             reader.disconnect();
             // Scanner Mode 2 Finish
-
-
-
-
             myWriteFile("", TagInfoArray, count);
+
         } catch (OctaneSdkException ex) {
             System.out.println(ex.getMessage());
         } catch (Exception ex) {
@@ -291,13 +187,11 @@ public class CollectDataInChangingPower {
     public static <T> void myWriteFile(String filename, ArrayList<T> content, String count) {
         String timeFlag = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 
-//        File file = new File(ChangePowerConfig.filePath + timeFlag + filename + ".csv");
         File file = new File(ChangePowerConfig.filePath + filename
                 + ChangePowerConfig.targetMask1
                 + "_" + ChangePowerConfig.targetMask2
                 + count
                 + "_" + ChangePowerConfig.TxPowerinDbm
-//                + "_" + ChangePowerConfig.freq
                 + ".csv");
         BufferedWriter bw = null;
         try {
@@ -315,21 +209,37 @@ public class CollectDataInChangingPower {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-//        collectHoppingPhase();
-//        String[] tags = new String[]{"A991", "A992", "A993", "A994", "A995"};
-        String[] tags = new String[]{"B034", "B029"};
+    public static void main(String[] args) throws InterruptedException {
+        String[] tags = new String[]{"E002", "C001"};
 //        String[] tags = new String[]{"B023"};
-        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation_v2\\B034_B029\\";
+        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation_v2\\E002_C001\\";
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\B034_B029\\";
 
-//        int count = 20;
-        for (int count = 1; count <= 50 ; ++count) {
-           ChangePowerConfig.targetMask1 = tags[0];
-           ChangePowerConfig.targetMask2 = tags[1];
-           ChangePowerConfig.filePath = baseDir;
-           collectHoppingPhase("(" + count + ")");
-        }
+        int countN = 5;
+//        for (int countN = 21; countN <= 50 ; ++countN) {
+            System.out.println("现在是 Count " + countN);
+
+            Scanner sc = new Scanner(System.in);
+            System.out.println("按任意键开始收集，按任意键结束收集");
+            sc.nextLine();
+
+            ChangePowerConfig.targetMask1 = tags[0];
+            ChangePowerConfig.targetMask2 = tags[1];
+            ChangePowerConfig.filePath = baseDir;
+//           collectHoppingPhase("(" + count + ")");
+            CollectDataInChangingPower cp = new CollectDataInChangingPower();
+            cp.flag = false;
+            cp.count = "(" + countN + ")";
+            cp.start();
+
+            // 一轮数据采集持续的时长
+//            Thread.sleep(ChangePowerConfig.duration);
+
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+
+            cp.flag = true;
+//        }
 
 
         // 920.625 ~ +0.5 ~ 924.375

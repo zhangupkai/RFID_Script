@@ -8,15 +8,25 @@ from base_list import get_degree_list
 # tag1 = 'B034'
 # tag2 = 'B029'
 
-tag1 = 'B016'
-tag2 = 'B023'
+# tag1 = 'B016'
+# tag2 = 'B023'
 
-file_path = f'../tagPair/data/dataset/{tag1}_{tag2}/fixed_degree/{tag1}_{tag2}(1)(1).csv'
+# tag1 = 'E002'
+# tag2 = 'E006'
+
+tag1 = 'F001'
+tag2 = 'F005'
+
+count_i = 20
+count_j = 20
+
+file_path = f'../tagPair/data/dataset/{tag1}_{tag2}/fixed_degree/{tag1}_{tag2}({count_i})({count_j}).csv'
 data = np.array(pd.read_csv(file_path, header=None))
 
-# 只取f1=920.625的数据
-phase_f1 = data[:, 0]
+for col in range(0, 8):
+    # 只取f1=920.625的数据
+    phase_f1 = data[:, col]
 
-plt.title(f'Phase Orientation Time (Tag Pair {tag1}_{tag2})')
-plt.plot(get_degree_list(), phase_f1, marker='o', markersize=3)
-plt.show()
+    plt.title(f'Phase Orientation Tag Pair {tag1}_{tag2}({count_i})({count_j})_f{col}')
+    plt.plot(get_degree_list(), phase_f1, marker='o', markersize=3)
+    plt.show()
