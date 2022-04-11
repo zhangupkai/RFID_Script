@@ -328,7 +328,7 @@ public class FixedDegree {
         String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\F001_F005\\degree_360\\";
 
 //        int count = 2;
-        for (int count = 1; count <= 10 ; ++count) {
+        for (int count = 16; count <= 20 ; ++count) {
            FixedDegreeConfig.targetMask1 = tags[0];
            FixedDegreeConfig.targetMask2 = tags[1];
            FixedDegreeConfig.filePath = baseDir;

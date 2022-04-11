@@ -37,15 +37,15 @@ tag2 = 'F005'
 
 # rotation_level = 'final_experiment/1_hop'
 # rotation_level = 'final_experiment/2_rotation_level/level_2'
-# rotation_level = 'final_experiment/3_object_distance/distance_4'
+rotation_level = 'final_experiment/3_object_distance/distance_4'
 # rotation_level = 'final_experiment/5_tag_type/type_1'
-rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_4'
+# rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_4'
 is_grouped = False
 # is_hop = '_hop'
 is_hop = ''
 
 # 间隔处理时间序列数据，distance较大时等需要使用
-is_inter_deal = False
+is_inter_deal = True
 for count in range(1, 6):
 
     bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0{is_hop}.csv'

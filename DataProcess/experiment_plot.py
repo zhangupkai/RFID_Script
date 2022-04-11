@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 
 def condition_1_hop_freq():
-    x_c1 = ['hop', 'not hop']
-    y_c1 = [0.9792, 1.0]
+    x_c1 = ['not hop', 'hop when rotation', 'hop after rotation']
+    y_c1 = [1.0, 0.9792, 1.0]
 
     # plt.figure(figsize=(4, 4))
     plt.bar(x=x_c1, height=y_c1, width=0.4)
@@ -36,7 +36,7 @@ def condition_2_rotation_level():
 
 def condition_3_object_distance():
     x_c1 = ['distance 1', 'distance 2', 'distance 3', 'distance 4']
-    y_c1 = [1.0, 0.8194, 1.0, 0.8347]
+    y_c1 = [1.0, 0.9174, 0.8512, 1.0]
 
     # plt.figure(figsize=(4, 4))
     plt.bar(x=x_c1, height=y_c1, width=0.4)
@@ -83,4 +83,4 @@ def condition_6_interfer_tag_numbers():
 
 
 if __name__ == '__main__':
-    condition_6_interfer_tag_numbers()
+    condition_3_object_distance()

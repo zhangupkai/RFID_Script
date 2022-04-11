@@ -180,7 +180,7 @@ def locate_degree_E002_C001(phase, freq):
 # character05
 def locate_degree_E002_E006(phase, freq):
     # 定位 E002_E006 时间序列中的峰值，第一个较低峰对应degree_135，第一个较高峰对应degree_315
-    peaks, _ = find_peaks(phase, height=0.5, distance=12000)
+    peaks, _ = find_peaks(phase, height=0.5, distance=4000)
 
     # 找到第一个较低峰
     # 较高峰和较低峰是交替出现的，如果第一个是较高峰，则第二个一定是较低峰 ==> 移除第一个较高峰的数据
@@ -194,7 +194,7 @@ def locate_degree_E002_E006(phase, freq):
     degree_315 = phase[peaks[1]]
 
     # 定位 E002_E006 时间序列中的谷值，对应degree_90, degree_270
-    valleys, _ = find_peaks(-phase, height=-0.2, distance=12000)
+    valleys, _ = find_peaks(-phase, height=-0.2, distance=4000)
 
     print('valleys: ', valleys)
 
@@ -266,9 +266,9 @@ def locate_degree_E002_E006_old(phase, freq):
 
 
 # character06
-def locate_degree_F001_F005(phase, freq):
+def locate_degree_F001_F005_old(phase, freq):
     # 定位 F001_F005 时间序列中的峰值，第一个较低峰对应degree_135，第一个较高峰对应degree_315
-    peaks, _ = find_peaks(phase, height=0.2, distance=12000)
+    peaks, _ = find_peaks(phase, height=0.3, distance=4000)
 
     # 找到第一个较低峰
     # 较高峰和较低峰是交替出现的，如果第一个是较高峰，则第二个一定是较低峰 ==> 移除第一个较高峰的数据
@@ -318,18 +318,30 @@ def locate_degree_F001_F005(phase, freq):
 
 
 # character06
-def locate_degree_F001_F005_old(phase, freq):
-    # 定位 F001_F005 时间序列中的峰值，最高对应 degree_90
+def locate_degree_F001_F005(phase, freq):
+    # 定位 F001_F005 时间序列中的峰值，
+    # 低峰，高峰，低峰，高峰，分别对应 degree_45, degree_135, degree_225, degree_315
     # height=1.0 => 峰值最小高度为1.0
     # distance=1000 => 相邻峰之间的样本距离至少为1000，首先删除较小的峰
-    peaks, _ = find_peaks(phase, height=0.4, distance=1000)
+    peaks, _ = find_peaks(phase, height=0.2, distance=6000)
+
+    # 找到第一个较低峰
+    # 较高峰和较低峰是交替出现的，如果第一个是较高峰，则第二个一定是较低峰 ==> 移除第一个较高峰的数据
+    if phase[peaks[0]] > phase[peaks[1]]:
+        peaks = np.delete(peaks, [0])
 
     print('peaks: ', peaks)
 
-    # 定位 F001_F005 时间序列中的谷值，对应degree_315
-    valleys, _ = find_peaks(-phase, height=-0.05, distance=1000)
+    # 第一个低峰对应 degree_45
+    degree_45 = phase[peaks[0]]
+    degree_135 = phase[peaks[1]]
+    degree_225 = phase[peaks[2]]
+    degree_315 = phase[peaks[3]]
 
-    # 第一个较高峰之后的低谷为有效低谷，对应degree_90
+    # 定位 F001_F005 时间序列中的谷值，对应degree_90, degree_270
+    valleys, _ = find_peaks(-phase, height=-0.05, distance=12000)
+
+    # 第一个峰之后的谷为有效谷，对应degree_90
     to_del_valleys_idx = []
     for index in range(valleys.shape[0]):
         # 删除在第一个较高峰之前的低谷
@@ -340,16 +352,12 @@ def locate_degree_F001_F005_old(phase, freq):
 
     print('valleys: ', valleys)
 
-    degree_90 = phase[peaks[0]]
-    degree_315 = phase[valleys[0]]
+    degree_90 = phase[valleys[0]]
+    degree_270 = phase[valleys[1]]
 
-    degree_135 = phase[peaks[0] + (valleys[0] - peaks[0]) // 5]
-    degree_180 = phase[peaks[0] + (valleys[0] - peaks[0]) * 2 // 5]
-    degree_225 = phase[valleys[0] - (valleys[0] - peaks[0]) * 2 // 5]
-    degree_270 = phase[valleys[0] - (valleys[0] - peaks[0]) // 5]
-    degree_360 = phase[valleys[0] + (peaks[1] - valleys[0]) // 3]
-    degree_0 = phase[valleys[0] + (peaks[1] - valleys[0]) // 3]
-    degree_45 = phase[peaks[1] - (peaks[1] - valleys[0]) // 3]
+    degree_180 = phase[peaks[1] + (valleys[1] - peaks[1]) // 3]
+    degree_360 = phase[peaks[3] + (valleys[2] - peaks[3]) // 3]
+    degree_0 = phase[peaks[3] + (valleys[2] - peaks[3]) // 3]
 
     phase_orientation = [degree_0, degree_45, degree_90,
                          degree_135, degree_180, degree_225,

@@ -23,14 +23,14 @@ Group1.3  8个不同频率下的数据
 # tag1 = 'B016'
 # tag2 = 'AA03'
 
-tag1 = 'F001'
-tag2 = 'F005'
+# tag1 = 'F001'
+# tag2 = 'F005'
 
 # tag1 = 'E002'
 # tag2 = 'C001'
 
-# tag1 = 'E002'
-# tag2 = 'E006'
+tag1 = 'E002'
+tag2 = 'E006'
 
 # tag1 = 'F001'
 # tag2 = 'E006'
@@ -40,7 +40,7 @@ rotation_level = 'final_experiment/1_hop'
 for count in range(21, 26):
     for freq in get_freq_list():
         bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0_{freq}.csv'
-        df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'freq_real', 'timestamp', 'phase', 'rssi'])
+        df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'timestamp', 'phase', 'rssi'])
 
         # 不根据频率分组
         # 根据epc对数据进行分组

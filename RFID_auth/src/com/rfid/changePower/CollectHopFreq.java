@@ -204,7 +204,7 @@ public class CollectHopFreq{
     public static void main(String[] args) throws InterruptedException {
         String[] tags = new String[]{"E002", "E006"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\1_hop\\E002_E006\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\3_object_distance\\distance_2\\E002_E006\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
@@ -213,13 +213,13 @@ public class CollectHopFreq{
         String msg = "";
         CollectHopFreq.isHop = false;
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
-        for (int countN = 21; countN < 26 ; ++countN) {
-            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
-                ChangePowerConfig.freq = freq;
-
-                msg = "_" + freq;
+        for (int countN = 11; countN < 16 ; ++countN) {
+//            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
+//                ChangePowerConfig.freq = freq;
+//
+//                msg = "_" + freq;
                 collect("(" + countN + ")",  msg);
-            }
+//            }
         }
     }
 }
@@ -229,7 +229,7 @@ enum Rotation {
     LEVEL1("level1", 60 * 1000 * 6),
     LEVEL2("level2", 60 * 1000 * 3),
     LEVEL3("level3", 60 * 1000 * 3 / 2),
-    LEVEL4("level1", 60 * 1000);
+    LEVEL4("level4", 60 * 1000);
     private String key;
     private long value;
 

@@ -112,5 +112,5 @@ def deal_data(count):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c in range(1, 11):
+    for c in range(16, 21):
         deal_data('(' + str(c) + ')')

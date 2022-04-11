@@ -11,10 +11,10 @@ from cal_rotation_cycle_time_main import cal_rotation_cycle_time
 
 # rotation_level = 'final_experiment/1_hop'
 # rotation_level = 'final_experiment/2_rotation_level/level_2'
-# rotation_level = 'final_experiment/3_object_distance/distance_4'
+rotation_level = 'final_experiment/3_object_distance/distance_4'
 # rotation_level = 'final_experiment/5_tag_type/type_1'
-rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_2'
-rotation_level_abbr = '_c6.2'
+# rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_2'
+rotation_level_abbr = '_c3.4'
 
 # tag1 = 'E002'
 # tag2 = 'C001'
