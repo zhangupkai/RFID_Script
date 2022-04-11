@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+
+from scipy.interpolate import interpolate
+
 from filters import hampel
 from cal_rotation_cycle_time_main import cal_rotation_cycle_time
 from scipy.signal import find_peaks
@@ -20,18 +23,21 @@ Group1.3  8个不同频率下的数据
 # tag1 = 'B016'
 # tag2 = 'AA03'
 
-# tag1 = 'F001'
-# tag2 = 'F005'
+tag1 = 'F001'
+tag2 = 'F005'
 
 # tag1 = 'E002'
 # tag2 = 'C001'
 
-tag1 = 'E002'
-tag2 = 'E006'
+# tag1 = 'E002'
+# tag2 = 'E006'
 
-rotation_level = 'final_experiment/0_tag_phase_trend'
+# tag1 = 'F001'
+# tag2 = 'E006'
+
+rotation_level = 'final_experiment/1_hop'
 # count = 22
-for count in range(1, 2):
+for count in range(21, 26):
     for freq in get_freq_list():
         bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0_{freq}.csv'
         df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'freq_real', 'timestamp', 'phase', 'rssi'])
@@ -64,14 +70,18 @@ for count in range(1, 2):
                 phase_diff[index] -= 2 * math.pi
         phase_diff = np.abs(phase_diff)
 
-        # circle_time = cal_rotation_cycle_time(timestamp1, phase_diff, f'{tag1}_{tag2}')
+        # 插值后x轴
+        timestamp_new = np.linspace(timestamp1[0], timestamp1[timestamp1.shape[0] - 1], timestamp1.shape[0] * 8)
+
+        # print('k:', list(phase_timestamp.keys()), ' v:', list(phase_timestamp.values()))
+        # 数据插值
+        f = interpolate.interp1d(list(timestamp1), list(phase_diff), kind='slinear', fill_value="extrapolate")
+        phase_new = f(timestamp_new)
 
         # 组合时间戳和相位差值
-        phase_time = np.vstack((timestamp1, phase_diff)).T
-        # np.savetxt(f'phase_time_sequence/{rotation_level}/{tag1}_{tag2}({count})_{freq}.csv', phase_time, delimiter=',')
+        phase_time = np.vstack((timestamp_new, phase_new)).T
+        np.savetxt(f'phase_time_sequence/{rotation_level}/{tag1}_{tag2}({count})_{freq}.csv', phase_time, delimiter=',')
 
         plt.title(f'Phase Orientation Time (Tag Pair freq_{freq} {tag1}_{tag2}_c{count})')
-        # plt.scatter(x=timestamp1, y=phase1, alpha=0.4, s=0.6, c='red')
-        # plt.scatter(x=timestamp2, y=phase2, alpha=0.4, s=0.6, c='green')
-        plt.scatter(x=timestamp1, y=phase_diff, alpha=0.4, s=0.6)
+        plt.scatter(x=timestamp_new, y=phase_new, alpha=0.4, s=0.6)
         plt.show()

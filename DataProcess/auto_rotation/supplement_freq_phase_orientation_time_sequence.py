@@ -16,10 +16,10 @@ from locate_degree_main import locate_degree
 # tag2 = 'AA03'
 # tag1 = 'B016'
 # tag2 = 'B023'
-tag1 = 'E002'
-tag2 = 'E006'
-# tag1 = 'F001'
-# tag2 = 'F005'
+# tag1 = 'E002'
+# tag2 = 'E006'
+tag1 = 'F001'
+tag2 = 'F005'
 # tag1 = 'E002'
 # tag2 = 'C001'
 
@@ -32,7 +32,7 @@ rotation_level_abbr = '_c1_hop'
 # 最终得到的相位矩阵，9个角度（9行），8个频率（8列）
 phase_mat = np.zeros((9, 8))
 
-for count in range(20, 31):
+for count in range(11, 16):
     col = 0
     # for freq in [920.625]:
     for freq in get_freq_list():

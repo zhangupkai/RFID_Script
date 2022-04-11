@@ -204,8 +204,7 @@ public class CollectHopFreq{
     public static void main(String[] args) throws InterruptedException {
         String[] tags = new String[]{"E002", "E006"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair" +
-                        "\\final_experiment\\2_rotation_level\\level_4\\E002_E006\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\1_hop\\E002_E006\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
@@ -214,8 +213,13 @@ public class CollectHopFreq{
         String msg = "";
         CollectHopFreq.isHop = false;
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
-        for (int countN = 1; countN < 6 ; ++countN) {
-            collect("(" + countN + ")",  msg);
+        for (int countN = 21; countN < 26 ; ++countN) {
+            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
+                ChangePowerConfig.freq = freq;
+
+                msg = "_" + freq;
+                collect("(" + countN + ")",  msg);
+            }
         }
     }
 }

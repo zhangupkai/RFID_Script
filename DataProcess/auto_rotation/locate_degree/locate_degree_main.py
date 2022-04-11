@@ -18,3 +18,5 @@ def locate_degree(timestamp, phase, tag_pair, freq):
         return locate_degree_E002_E006(phase, freq)
     elif tag_pair == 'F001_F005':
         return locate_degree_F001_F005(phase, freq)
+    elif tag_pair == 'F001_E006':
+        return locate_degree_F001_E006(phase, freq)

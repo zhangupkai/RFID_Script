@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class CollectPhaseTrend {
 
@@ -134,7 +135,6 @@ public class CollectPhaseTrend {
                 }
             });
 
-
             /*
             // Scanner Mode 1 Start：手动开始和结束扫描
             //开始扫描
@@ -154,6 +154,7 @@ public class CollectPhaseTrend {
 
 
 
+
             // Scanner Mode 2 Start：自动开始，定时结束
             reader.start();
             // 定时自动结束
@@ -162,6 +163,8 @@ public class CollectPhaseTrend {
             Thread.sleep(500);
             reader.disconnect();
             // Scanner Mode 2 Finish
+
+
 
             myWriteFile("", TagInfoArray, count, msg);
 
@@ -201,11 +204,11 @@ public class CollectPhaseTrend {
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"E002", "E006"};
+        String[] tags = new String[]{"F001", "E006"};
 //        String[] tags = new String[]{"B023"};
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation\\F001_F005\\";
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\E002_E006\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\F001_E006\\";
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\B034_B029\\";
 
 //        int countN = 6;
@@ -216,7 +219,7 @@ public class CollectPhaseTrend {
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
         // 转速Level
-        ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
+        ChangePowerConfig.duration = Rotation.LEVEL3.getValue();
 
         for (int countN = 1; countN <= 1 ; ++countN) {
             for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
