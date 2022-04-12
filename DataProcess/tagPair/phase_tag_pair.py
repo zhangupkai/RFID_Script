@@ -26,12 +26,16 @@ def deal_data(count):
     # tag_pair = 'B034_B029'
     # tag_pair = 'B016_AA03'
     # tag_pair = 'B016_B023'
-    tag_pair = 'F001_F005'
+    # tag_pair = 'F001_F005'
     # tag_pair = 'E002_E006'
     # tag_pair = 'E002_C001'
     # tag_pair = 'F001_E006'
+    # tag_pair = 'F002_F003'
+    # tag_pair = 'C001_C002'
+    # tag_pair = 'C003_C004'
+    tag_pair = 'E004_E005'
 
-    tag = 'F005'
+    tag = 'E005'
 
     # count = '(1)'
     sava_path = 'data/fixed_degree/' + tag_pair + '/' + tag + count
@@ -112,5 +116,5 @@ def deal_data(count):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c in range(16, 21):
+    for c in range(1, 6):
         deal_data('(' + str(c) + ')')

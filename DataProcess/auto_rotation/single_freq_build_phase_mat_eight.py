@@ -19,8 +19,8 @@ rotation_level_abbr = '_c1_hop_ex'
 # tag1 = 'E002'
 # tag2 = 'C001'
 
-tag1 = 'E002'
-tag2 = 'E006'
+# tag1 = 'E002'
+# tag2 = 'E006'
 
 # tag1 = 'F001'
 # tag2 = 'F005'
@@ -28,7 +28,13 @@ tag2 = 'E006'
 # tag1 = 'F001'
 # tag2 = 'E006'
 
-for count in range(21, 26):
+# tag1 = 'E004'
+# tag2 = 'E005'
+
+tag1 = 'C001'
+tag2 = 'C002'
+
+for count in range(21, 24):
     # 最终得到的相位矩阵，9个角度（9行），8个频率（8列）
     phase_mat = np.zeros((9, 8))
 
@@ -51,5 +57,5 @@ for count in range(21, 26):
         phase_mat[:, col] = np.array(phase_orientation)
         col += 1
 
-    save_path = f'{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
+    save_path = f'{rotation_level}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
     np.savetxt(save_path, phase_mat, delimiter=',')

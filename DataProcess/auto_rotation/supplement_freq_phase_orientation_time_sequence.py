@@ -18,10 +18,12 @@ from locate_degree_main import locate_degree
 # tag2 = 'B023'
 # tag1 = 'E002'
 # tag2 = 'E006'
-tag1 = 'F001'
-tag2 = 'F005'
+# tag1 = 'F001'
+# tag2 = 'F005'
 # tag1 = 'E002'
 # tag2 = 'C001'
+tag1 = 'E004'
+tag2 = 'E005'
 
 # 转动周期，微秒级
 # circle_time = 108520704
@@ -32,7 +34,7 @@ rotation_level_abbr = '_c1_hop'
 # 最终得到的相位矩阵，9个角度（9行），8个频率（8列）
 phase_mat = np.zeros((9, 8))
 
-for count in range(11, 16):
+for count in range(11, 14):
     col = 0
     # for freq in [920.625]:
     for freq in get_freq_list():
@@ -142,5 +144,5 @@ for count in range(11, 16):
         phase_mat[:, col] = np.array(phase_orientation)
         col += 1
 
-    save_path = f'{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
+    save_path = f'{rotation_level}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
     np.savetxt(save_path, phase_mat, delimiter=',')

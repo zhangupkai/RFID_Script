@@ -29,18 +29,37 @@ Group1.3  8个不同频率下的数据
 # tag1 = 'E002'
 # tag2 = 'C001'
 
-tag1 = 'E002'
-tag2 = 'E006'
+# tag1 = 'E002'
+# tag2 = 'E006'
 
 # tag1 = 'F001'
 # tag2 = 'E006'
 
+# tag1 = 'E004'
+# tag2 = 'E005'
+
+tag1 = 'C001'
+tag2 = 'C002'
+
+# rotation_level = 'final_experiment/0_tag_phase_trend'
 rotation_level = 'final_experiment/1_hop'
+is_inter_deal = True
 # count = 22
-for count in range(21, 26):
+for count in range(21, 24):
     for freq in get_freq_list():
         bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0_{freq}.csv'
         df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'timestamp', 'phase', 'rssi'])
+
+        pre_epc = ''
+        if is_inter_deal is True:
+            for index, row in df.iterrows():
+                if index == 0:
+                    pre_epc = row['epc']
+                    continue
+                # 如果当前行的epc等于上一行的epc，删除上一行
+                if row['epc'] == pre_epc:
+                    df = df.drop(index - 1)
+                pre_epc = row['epc']
 
         # 不根据频率分组
         # 根据epc对数据进行分组
@@ -68,7 +87,7 @@ for count in range(21, 26):
         for index in range(len(phase_diff)):
             if phase_diff[index] > math.pi:
                 phase_diff[index] -= 2 * math.pi
-        phase_diff = np.abs(phase_diff)
+        phase_diff = hampel(np.abs(phase_diff))
 
         # 插值后x轴
         timestamp_new = np.linspace(timestamp1[0], timestamp1[timestamp1.shape[0] - 1], timestamp1.shape[0] * 8)

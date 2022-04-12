@@ -23,8 +23,8 @@ Group1.2 单个频率
 # tag1 = 'B016'
 # tag2 = 'AA03'
 
-tag1 = 'F001'
-tag2 = 'F005'
+# tag1 = 'F001'
+# tag2 = 'F005'
 
 # tag1 = 'E002'
 # tag2 = 'C001'
@@ -35,9 +35,15 @@ tag2 = 'F005'
 # tag1 = 'F001'
 # tag2 = 'E006'
 
-# rotation_level = 'final_experiment/1_hop'
+# tag1 = 'E004'
+# tag2 = 'E005'
+
+tag1 = 'C001'
+tag2 = 'C002'
+
+rotation_level = 'final_experiment/1_hop'
 # rotation_level = 'final_experiment/2_rotation_level/level_2'
-rotation_level = 'final_experiment/3_object_distance/distance_4'
+# rotation_level = 'final_experiment/3_object_distance/distance_4'
 # rotation_level = 'final_experiment/5_tag_type/type_1'
 # rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_4'
 is_grouped = False
@@ -46,7 +52,7 @@ is_hop = ''
 
 # 间隔处理时间序列数据，distance较大时等需要使用
 is_inter_deal = True
-for count in range(1, 6):
+for count in range(1, 4):
 
     bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0{is_hop}.csv'
     df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'timestamp', 'phase', 'rssi'])
@@ -56,20 +62,16 @@ for count in range(1, 6):
         group_by_freq = df.groupby('freq')
 
         for freq, freq_group in group_by_freq:
-            # df中的数据应该是两个标签交替出现的，若出现连续的标签，需要记录非第一次出现的行号index而后删除
-            # 记录应该删除的数据行号index
-            # to_del_index = []
-            # for index, row in df.iterrows():
-            #     if index == 0:
-            #         # 记录上一行数据
-            #         pre_row = row
-            #     else:
-            #         if row['epc'] == pre_row['epc']:
-            #             to_del_index.append(index)
-            #         pre_row = row
-
-            # 删除指定数据
-            # df.drop(to_del_index, inplace=True)
+            pre_epc = ''
+            if is_inter_deal is True:
+                for index, row in df.iterrows():
+                    if index == 0:
+                        pre_epc = row['epc']
+                        continue
+                    # 如果当前行的epc等于上一行的epc，删除上一行
+                    if row['epc'] == pre_epc:
+                        df = df.drop(index - 1)
+                    pre_epc = row['epc']
 
             # 根据epc对数据进行分组
             grouped = freq_group.groupby('epc')
@@ -95,22 +97,18 @@ for count in range(1, 6):
             for index in range(len(phase_diff)):
                 if phase_diff[index] > math.pi:
                     phase_diff[index] -= 2 * math.pi
-            phase_diff = np.abs(phase_diff)
+            phase_diff = hampel(np.abs(phase_diff))
 
-            # plt.scatter(x=x_phase1, y=phase1, c='red', alpha=0.4, s=0.6)
-            # plt.scatter(x=x_phase2, y=phase2, alpha=0.4, s=0.6)
+            # circle_time = cal_rotation_cycle_time(timestamp1, phase_diff, f'{tag1}_{tag2}')
+
+            # 组合时间戳和相位差值
+            phase_time = np.vstack((timestamp1, phase_diff)).T
+
             plt.title(f'Phase Orientation Time (Tag Pair freq_{freq} {tag1}_{tag2}_c{count})')
             plt.scatter(x=timestamp1, y=phase_diff, alpha=0.4, s=0.6)
             plt.show()
 
-            # 组合时间戳和相位差值
-            phase_time = np.vstack((timestamp1, phase_diff)).T
             np.savetxt(f'phase_time_sequence/{rotation_level}/{tag1}_{tag2}({count})_{freq}.csv', phase_time, delimiter=',')
-
-            # plt.scatter(x=timestamp1, y=phase1, alpha=0.4, s=0.6, label=tag1)
-            # plt.scatter(x=timestamp2, y=phase2, alpha=0.4, s=0.6, label=tag2, c='red')
-            # plt.legend()
-            # plt.show()
 
     else:
         # 不根据频率分组，全部8个频率下的数据
@@ -174,9 +172,9 @@ for count in range(1, 6):
         phase_time = np.vstack((timestamp_new, phase_new)).T
         np.savetxt(f'phase_time_sequence/{rotation_level}/{tag1}_{tag2}({count}).csv', phase_time, delimiter=',')
 
-        plt.title(f'Phase Orientation Time {tag1}_{tag2}_c{count}')
-        plt.scatter(x=timestamp1, y=phase_diff, alpha=0.4, s=0.6)
-        plt.show()
+        # plt.title(f'Phase Orientation Time {tag1}_{tag2}_c{count}')
+        # plt.scatter(x=timestamp1, y=phase_diff, alpha=0.4, s=0.6)
+        # plt.show()
 
         plt.title(f'Phase Orientation Time Interpolate {tag1}_{tag2}_c{count}')
         plt.scatter(x=timestamp_new, y=phase_new, alpha=0.4, s=0.6)

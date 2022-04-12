@@ -14,8 +14,8 @@ from base_list import get_degree_list
 # tag1 = 'E002'
 # tag2 = 'E006'
 
-tag1 = 'F001'
-tag2 = 'F005'
+# tag1 = 'F001'
+# tag2 = 'F005'
 
 # tag1 = 'F001'
 # tag2 = 'E006'
@@ -23,13 +23,19 @@ tag2 = 'F005'
 # tag1 = 'E002'
 # tag2 = 'C001'
 
-count_i = 16
-count_j = 16
+# tag1 = 'E004'
+# tag2 = 'E005'
 
-file_path = f'../tagPair/data/dataset/{tag1}_{tag2}/fixed_degree/{tag1}_{tag2}({count_i})({count_j}).csv'
+tag1 = 'C001'
+tag2 = 'C002'
+
+count_i = 3
+count_j = 3
+
+file_path = f'../tagPair/data/dataset/{tag1}_{tag2}/{tag1}_{tag2}({count_i})({count_j}).csv'
 data = np.array(pd.read_csv(file_path, header=None))
 
-for col in range(0, 7):
+for col in range(0, 8):
     # 只取f1=920.625的数据
     phase_f1 = data[:, col]
 

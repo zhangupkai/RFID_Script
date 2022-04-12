@@ -135,7 +135,7 @@ public class CollectPhaseTrend {
                 }
             });
 
-            /*
+
             // Scanner Mode 1 Start：手动开始和结束扫描
             //开始扫描
             System.out.println("在控制台敲击回车开始扫描.");
@@ -150,11 +150,8 @@ public class CollectPhaseTrend {
             reader.disconnect();
             // Scanner Mode 1 Finish
 
-             */
 
-
-
-
+            /*
             // Scanner Mode 2 Start：自动开始，定时结束
             reader.start();
             // 定时自动结束
@@ -163,6 +160,8 @@ public class CollectPhaseTrend {
             Thread.sleep(500);
             reader.disconnect();
             // Scanner Mode 2 Finish
+
+             */
 
 
 
@@ -204,11 +203,11 @@ public class CollectPhaseTrend {
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"F001", "E006"};
+        String[] tags = new String[]{"C001", "C002"};
 //        String[] tags = new String[]{"B023"};
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation\\F001_F005\\";
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\F001_E006\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\C001_C002\\";
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\B034_B029\\";
 
 //        int countN = 6;
@@ -219,15 +218,16 @@ public class CollectPhaseTrend {
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
         // 转速Level
-        ChangePowerConfig.duration = Rotation.LEVEL3.getValue();
+        ChangePowerConfig.duration = Rotation.LEVEL2.getValue();
 
         for (int countN = 1; countN <= 1 ; ++countN) {
-            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
-                ChangePowerConfig.freq = freq;
+            double freq = 920.625;
+//            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
+//                ChangePowerConfig.freq = freq;
 
                 msg = "_" + freq;
                 collect("(" + countN + ")",  msg);
-            }
+//            }
 
         }
     }

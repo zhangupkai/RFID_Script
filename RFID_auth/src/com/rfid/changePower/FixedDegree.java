@@ -320,38 +320,15 @@ public class FixedDegree {
         }
     }
     public static void main(String[] args) {
-//        collectHoppingPhase();
-//        String[] tags = new String[]{"A991", "A992", "A993", "A994", "A995"};
-        String[] tags = new String[]{"F001", "F005"};
-//        String[] tags = new String[]{"B023"};
-//        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation\\B034_B029\\";
-        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\F001_F005\\degree_360\\";
+        String[] tags = new String[]{"E004", "E005"};
+        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\E004_E005\\degree_360\\";
 
-//        int count = 2;
-        for (int count = 16; count <= 20 ; ++count) {
+        for (int count = 1; count <= 5 ; ++count) {
            FixedDegreeConfig.targetMask1 = tags[0];
            FixedDegreeConfig.targetMask2 = tags[1];
            FixedDegreeConfig.filePath = baseDir;
            collectHoppingPhase("(" + count + ")");
         }
-
-
-        // 920.625 ~ +0.5 ~ 924.375
-//        double[] freqList = FixedDegreeConfig.getFreqList(920.625, 924.375);
-//        // 24 ~ +1 ~ 31
-//        // 24
-//        double[] powerList = FixedDegreeConfig.getPowerList(24.0, 24.0);
-//        for (String tag : tags) {
-//            FixedDegreeConfig.targetMask = tag;
-//            FixedDegreeConfig.filePath = baseDir;
-//            for (double power : powerList) {
-//                FixedDegreeConfig.TxPowerinDbm = power;
-//                for (double freq : freqList) {
-//                    FixedDegreeConfig.freq = freq;
-//                    collectHoppingPhase();
-//                }
-//            }
-//        }
     }
 }
 

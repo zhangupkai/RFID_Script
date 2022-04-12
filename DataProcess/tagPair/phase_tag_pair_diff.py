@@ -32,9 +32,9 @@ def deal_data(count1, count2):
     # tag1 = 'B016'
     # tag2 = 'AA03'
 
-    tag_pair = 'F001_F005'
-    tag1 = 'F001'
-    tag2 = 'F005'
+    # tag_pair = 'F001_F005'
+    # tag1 = 'F001'
+    # tag2 = 'F005'
 
     # tag_pair = 'E002_E006'
     # tag1 = 'E002'
@@ -48,12 +48,28 @@ def deal_data(count1, count2):
     # tag1 = 'F001'
     # tag2 = 'E006'
 
+    # tag_pair = 'F002_F003'
+    # tag1 = 'F002'
+    # tag2 = 'F003'
+
+    # tag_pair = 'C001_C002'
+    # tag1 = 'C001'
+    # tag2 = 'C002'
+
+    # tag_pair = 'C003_C004'
+    # tag1 = 'C003'
+    # tag2 = 'C004'
+
+    tag_pair = 'E004_E005'
+    tag1 = 'E004'
+    tag2 = 'E005'
+
     # count = '(2)'
     bath_dir = 'data/fixed_degree/' + tag_pair + '/'
     degrees = ['degree_0', 'degree_45', 'degree_90', 'degree_135', 'degree_180',
                'degree_225', 'degree_270', 'degree_315', 'degree_360']
     # sava_path = 'phase_time_sequence/distance_' + distance + '/' + tag_pair + '/' + tag_pair + count1 + count2
-    sava_path = f'data/dataset/{tag_pair}/fixed_degree/{tag_pair}{count1}{count2}'
+    sava_path = f'data/dataset/{tag_pair}/{tag_pair}{count1}{count2}'
     phase_freq_degree = np.zeros((9, 8))
 
     file_path1 = bath_dir + tag1 + count1 + '.csv'
@@ -84,6 +100,6 @@ def deal_data(count1, count2):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c1 in range(16, 21):
-        for c2 in range(16, 21):
+    for c1 in range(1, 6):
+        for c2 in range(1, 6):
             deal_data('({c1})'.format(c1=c1), '({c2})'.format(c2=c2))
