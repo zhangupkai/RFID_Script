@@ -16,6 +16,24 @@ def get_freq_list():
     return freq_list
 
 
+# 生成频率列表（前4个）
+def get_freq_list_first():
+    freq_list = []
+    for x in range(0, 4):
+        freq = 920.625 + x * 0.5
+        freq_list.append(freq)
+    return freq_list
+
+
+# 生成频率列表（后4个）
+def get_freq_list_last():
+    freq_list = []
+    for x in range(4, 8):
+        freq = 920.625 + x * 0.5
+        freq_list.append(freq)
+    return freq_list
+
+
 # 生成角度列表
 def get_degree_list():
     degree_list = []

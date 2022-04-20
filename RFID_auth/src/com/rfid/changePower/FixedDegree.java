@@ -320,13 +320,14 @@ public class FixedDegree {
         }
     }
     public static void main(String[] args) {
-        String[] tags = new String[]{"E004", "E005"};
-        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\E004_E005\\degree_360\\";
+        String[] tags = new String[]{"C001", "C002"};
+        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\C001_C002\\degree_315\\";
 
-        for (int count = 1; count <= 5 ; ++count) {
-           FixedDegreeConfig.targetMask1 = tags[0];
-           FixedDegreeConfig.targetMask2 = tags[1];
-           FixedDegreeConfig.filePath = baseDir;
+        FixedDegreeConfig.targetMask1 = tags[0];
+        FixedDegreeConfig.targetMask2 = tags[1];
+        FixedDegreeConfig.filePath = baseDir;
+
+        for (int count = 101; count < 106 ; ++count) {
            collectHoppingPhase("(" + count + ")");
         }
     }

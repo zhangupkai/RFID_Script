@@ -52,17 +52,17 @@ def deal_data(count1, count2):
     # tag1 = 'F002'
     # tag2 = 'F003'
 
-    # tag_pair = 'C001_C002'
-    # tag1 = 'C001'
-    # tag2 = 'C002'
+    tag_pair = 'C001_C002'
+    tag1 = 'C001'
+    tag2 = 'C002'
 
     # tag_pair = 'C003_C004'
     # tag1 = 'C003'
     # tag2 = 'C004'
 
-    tag_pair = 'E004_E005'
-    tag1 = 'E004'
-    tag2 = 'E005'
+    # tag_pair = 'E004_E005'
+    # tag1 = 'E004'
+    # tag2 = 'E005'
 
     # count = '(2)'
     bath_dir = 'data/fixed_degree/' + tag_pair + '/'
@@ -100,6 +100,6 @@ def deal_data(count1, count2):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c1 in range(1, 6):
-        for c2 in range(1, 6):
+    for c1 in range(101, 106):
+        for c2 in range(101, 106):
             deal_data('({c1})'.format(c1=c1), '({c2})'.format(c2=c2))

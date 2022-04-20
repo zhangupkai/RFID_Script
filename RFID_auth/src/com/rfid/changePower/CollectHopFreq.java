@@ -202,18 +202,24 @@ public class CollectHopFreq{
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"C001", "C002"};
+        String[] tags = new String[]{"C003", "C004"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\1_hop\\C001_C002\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\" +
+                        "final_experiment\\4_tag_distance\\distance_2\\C003_C004\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
-
+        CollectHopFreq.isHop = false;
 
         String msg = "";
-        CollectHopFreq.isHop = false;
+
+//        ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
+//        for (int countN = 6; countN < 26 ; ++countN) {
+//            collect("(" + countN + ")",  msg);
+//        }
+
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
-        for (int countN = 21; countN < 24 ; ++countN) {
+        for ( int countN = 26; countN < 28 ; ++countN) {
             for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
                 ChangePowerConfig.freq = freq;
                 msg = "_" + freq;
@@ -224,34 +230,4 @@ public class CollectHopFreq{
     }
 }
 
-
-enum Rotation {
-    LEVEL1("level1", (60 * 4 + 30) * 1000),
-    LEVEL2("level2", (60 * 2 + 30) * 1000),
-    LEVEL3("level3", (60 + 15) * 1000),
-    LEVEL4("level4", 50 * 1000);
-    private String key;
-    private long value;
-
-    Rotation(String key, long value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-}
 

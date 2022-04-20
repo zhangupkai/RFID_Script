@@ -203,11 +203,11 @@ public class CollectPhaseTrend {
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"C001", "C002"};
+        String[] tags = new String[]{"C003", "C004"};
 //        String[] tags = new String[]{"B023"};
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\auto_rotation\\F001_F005\\";
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\C001_C002\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\0_tag_phase_trend\\C003_C004\\";
 //        String baseDir = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\fixed_degree\\B034_B029\\";
 
 //        int countN = 6;
@@ -218,9 +218,9 @@ public class CollectPhaseTrend {
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
         // 转速Level
-        ChangePowerConfig.duration = Rotation.LEVEL2.getValue();
+        ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
 
-        for (int countN = 1; countN <= 1 ; ++countN) {
+        for (int countN = 13; countN <= 13 ; ++countN) {
             double freq = 920.625;
 //            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
 //                ChangePowerConfig.freq = freq;

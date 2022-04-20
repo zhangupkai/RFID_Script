@@ -29,8 +29,14 @@ from base_list import get_degree_list
 tag1 = 'C001'
 tag2 = 'C002'
 
-count_i = 3
-count_j = 3
+# tag1 = 'C003'
+# tag2 = 'C004'
+
+# tag1 = 'F002'
+# tag2 = 'F003'
+
+count_i = 101
+count_j = 101
 
 file_path = f'../tagPair/data/dataset/{tag1}_{tag2}/{tag1}_{tag2}({count_i})({count_j}).csv'
 data = np.array(pd.read_csv(file_path, header=None))
