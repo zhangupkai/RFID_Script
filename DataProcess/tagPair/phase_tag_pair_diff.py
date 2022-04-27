@@ -20,9 +20,9 @@ def deal_data(count1, count2):
     # distance = '60cm_left_20cm'
     # distance = 'vertical'
 
-    # tag_pair = 'B034_B029'
-    # tag1 = 'B034'
-    # tag2 = 'B029'
+    tag_pair = 'B034_B029'
+    tag1 = 'B034'
+    tag2 = 'B029'
 
     # tag_pair = 'B016_B023'
     # tag1 = 'B016'
@@ -52,9 +52,9 @@ def deal_data(count1, count2):
     # tag1 = 'F002'
     # tag2 = 'F003'
 
-    tag_pair = 'C001_C002'
-    tag1 = 'C001'
-    tag2 = 'C002'
+    # tag_pair = 'C001_C002'
+    # tag1 = 'C001'
+    # tag2 = 'C002'
 
     # tag_pair = 'C003_C004'
     # tag1 = 'C003'
@@ -84,15 +84,27 @@ def deal_data(count1, count2):
             phase -= 2 * math.pi
     phase_diff = np.abs(phase_diff)
 
-    matplotlib.rcParams.update({'font.size': 12})  # 改变所有字体大小，改变其他性质类似
+    # matplotlib.rcParams.update({'font.size': 12})  # 改变所有字体大小，改变其他性质类似
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
+    plt.rc('font', family='Times New Roman', size=16, weight='bold')
 
     sns.heatmap(phase_diff, cmap='Blues', xticklabels=get_freq_list(), yticklabels=get_degree_list())
-    plt.title('Phase Diff ' + '' + ' ' + tag_pair + " " + count1 + count2)
-    plt.xlabel("Freq")
-    plt.ylabel("Degree")
-    plt.xticks(rotation=45)
-    plt.yticks(rotation=0)
-    # plt.savefig(sava_path + '.png', bbox_inches='tight')
+    # plt.title('Phase Diff ' + '' + ' ' + tag_pair + " " + count1 + count2)
+
+    label_font = {
+        'size': 20,
+        'weight': 'bold'
+    }
+
+    plt.xlabel("Freq", fontdict=label_font)
+    plt.ylabel("Degree", fontdict=label_font)
+    plt.xticks(rotation=45, size=16, weight='bold')
+    plt.yticks(rotation=0, size=16, weight='bold')
+    # plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.eps', bbox_inches='tight', dpi=600, format='eps')
+    plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.png', bbox_inches='tight')
     plt.show()
 
     np.savetxt(sava_path + '.csv', phase_diff, delimiter=',')
@@ -100,6 +112,6 @@ def deal_data(count1, count2):
 
 if __name__ == '__main__':
     # counts = ['(1)', '(2)', '(3)', '(4)', '(5)']
-    for c1 in range(101, 106):
-        for c2 in range(101, 106):
+    for c1 in range(1, 2):
+        for c2 in range(1, 2):
             deal_data('({c1})'.format(c1=c1), '({c2})'.format(c2=c2))

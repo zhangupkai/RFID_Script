@@ -534,7 +534,7 @@ def locate_degree_common(phase, freq):
     # 定位 时间序列中的峰，一个周期有一个最高峰
     # 峰仅用于第一个有效谷，不用于定位具体角度
     # level 4 ==> distance=10000
-    peaks, _ = find_peaks(phase, height=0.3, distance=10000)
+    peaks, _ = find_peaks(phase, height=0.2, distance=10000)
 
     # if peaks[0] < 200:
     #     peaks = np.delete(peaks, [0])

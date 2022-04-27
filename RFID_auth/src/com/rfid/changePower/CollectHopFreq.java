@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class CollectHopFreq{
 
     public static boolean isHop;
+    public static boolean isFilter;
 
     public static void collect(String count, String msg) {
         String hostname = ChangePowerConfig.hostname;
@@ -62,27 +63,28 @@ public class CollectHopFreq{
             report.setMode(ReportMode.Individual);// 每个标签单独作为一个report返回
             report.setMode(ReportMode.Individual);
 
-            // 设置过滤标签设置
-            TagFilter filter1 = new TagFilter();
-            filter1.setMemoryBank(MemoryBank.Epc);
-            filter1.setBitPointer(BitPointers.Epc);
-            filter1.setBitCount(4L * ChangePowerConfig.targetMask1.length());
-            filter1.setTagMask(ChangePowerConfig.targetMask1);
-            filter1.setFilterOp(TagFilterOp.Match);
+            if (isFilter) {
+                // 设置过滤标签设置
+                TagFilter filter1 = new TagFilter();
+                filter1.setMemoryBank(MemoryBank.Epc);
+                filter1.setBitPointer(BitPointers.Epc);
+                filter1.setBitCount(4L * ChangePowerConfig.targetMask1.length());
+                filter1.setTagMask(ChangePowerConfig.targetMask1);
+                filter1.setFilterOp(TagFilterOp.Match);
 
-            TagFilter filter2 = new TagFilter();
-            filter2.setMemoryBank(MemoryBank.Epc);
-            filter2.setBitPointer(BitPointers.Epc);
-            filter2.setBitCount(4L * ChangePowerConfig.targetMask2.length());
-            filter2.setTagMask(ChangePowerConfig.targetMask2);
-            filter2.setFilterOp(TagFilterOp.Match);
+                TagFilter filter2 = new TagFilter();
+                filter2.setMemoryBank(MemoryBank.Epc);
+                filter2.setBitPointer(BitPointers.Epc);
+                filter2.setBitCount(4L * ChangePowerConfig.targetMask2.length());
+                filter2.setTagMask(ChangePowerConfig.targetMask2);
+                filter2.setFilterOp(TagFilterOp.Match);
 
-            FilterSettings filterSettings = new FilterSettings();
-            filterSettings.setTagFilter1(filter1);
-            filterSettings.setTagFilter2(filter2);
-            filterSettings.setMode(TagFilterMode.Filter1OrFilter2);
-            settings.setFilters(filterSettings);
-
+                FilterSettings filterSettings = new FilterSettings();
+                filterSettings.setTagFilter1(filter1);
+                filterSettings.setTagFilter2(filter2);
+                filterSettings.setMode(TagFilterMode.Filter1OrFilter2);
+                settings.setFilters(filterSettings);
+            }
 
             String mode = ReadPrintUtils.chooseMode(readerModel, ChangePowerConfig.mode);
             settings.setReaderMode(ReaderMode.valueOf(mode));
@@ -202,14 +204,14 @@ public class CollectHopFreq{
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"C003", "C004"};
+        String[] tags = new String[]{"F002", "F003"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\" +
-                        "final_experiment\\4_tag_distance\\distance_2\\C003_C004\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\1_hop\\F002_F003\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
         CollectHopFreq.isHop = false;
+        CollectHopFreq.isFilter = true;
 
         String msg = "";
 
@@ -219,7 +221,8 @@ public class CollectHopFreq{
 //        }
 
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
-        for ( int countN = 26; countN < 28 ; ++countN) {
+//        for (int countN = 41; countN < 43 ; ++countN) {
+        for (int countN = 46; countN < 48 ; ++countN) {
             for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
                 ChangePowerConfig.freq = freq;
                 msg = "_" + freq;
