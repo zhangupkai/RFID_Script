@@ -63,7 +63,7 @@ public class CollectHopFreq{
             report.setMode(ReportMode.Individual);// 每个标签单独作为一个report返回
             report.setMode(ReportMode.Individual);
 
-            if (isFilter) {
+//            if (isFilter) {
                 // 设置过滤标签设置
                 TagFilter filter1 = new TagFilter();
                 filter1.setMemoryBank(MemoryBank.Epc);
@@ -84,7 +84,7 @@ public class CollectHopFreq{
                 filterSettings.setTagFilter2(filter2);
                 filterSettings.setMode(TagFilterMode.Filter1OrFilter2);
                 settings.setFilters(filterSettings);
-            }
+//            }
 
             String mode = ReadPrintUtils.chooseMode(readerModel, ChangePowerConfig.mode);
             settings.setReaderMode(ReaderMode.valueOf(mode));
@@ -204,9 +204,9 @@ public class CollectHopFreq{
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        String[] tags = new String[]{"F002", "F003"};
+        String[] tags = new String[]{"C003", "C004"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\1_hop\\F002_F003\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\final_experiment\\10_room\\room_2\\C003_C004\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
@@ -222,7 +222,7 @@ public class CollectHopFreq{
 
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
 //        for (int countN = 41; countN < 43 ; ++countN) {
-        for (int countN = 46; countN < 48 ; ++countN) {
+        for (int countN = 30; countN < 32 ; ++countN) {
             for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
                 ChangePowerConfig.freq = freq;
                 msg = "_" + freq;

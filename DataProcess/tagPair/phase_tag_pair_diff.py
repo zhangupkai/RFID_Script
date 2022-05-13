@@ -89,21 +89,21 @@ def deal_data(count1, count2):
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
-    plt.rc('font', family='Times New Roman', size=16, weight='bold')
+    plt.rc('font', family='Times New Roman', size=12, weight='bold')
 
     sns.heatmap(phase_diff, cmap='Blues', xticklabels=get_freq_list(), yticklabels=get_degree_list())
     # plt.title('Phase Diff ' + '' + ' ' + tag_pair + " " + count1 + count2)
 
     label_font = {
-        'size': 20,
+        'size': 14,
         'weight': 'bold'
     }
 
-    plt.xlabel("Freq", fontdict=label_font)
-    plt.ylabel("Degree", fontdict=label_font)
-    plt.xticks(rotation=45, size=16, weight='bold')
-    plt.yticks(rotation=0, size=16, weight='bold')
-    # plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.eps', bbox_inches='tight', dpi=600, format='eps')
+    plt.xlabel("Frequency (MHz)", fontdict=label_font)
+    plt.ylabel("Angle (°)", fontdict=label_font)
+    plt.xticks(rotation=45, size=12, weight='bold')
+    plt.yticks(rotation=0, size=12, weight='bold')
+    plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.pdf', bbox_inches='tight', dpi=600, format='pdf')
     plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.png', bbox_inches='tight')
     plt.show()
 

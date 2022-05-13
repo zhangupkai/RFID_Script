@@ -10,7 +10,7 @@ public class ChangePowerConfig {
     // 天线端口选择  R220:{1,2}  R420:{1,2,3,4}
     public static short[] port = new short[]{1};
     // 传输功率设定(10 ~ 32.5, 间隔0.25，共91个可选功率)
-    public static double TxPowerinDbm = 25;
+    public static double TxPowerinDbm = 32.5;
 
     public static double freq = 920.625;
 
