@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
 
 condition = 'covered_object_material'
-x_label = 'Occluded Object Material'
+x_label = 'Obstacle Material'
 y_label = 'Accuracy'
 scale = ['LOS', 'glass', 'box', 'plastic']
 database = ['Legitimate', 'Illegitimate']

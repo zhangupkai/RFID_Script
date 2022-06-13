@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
 
 condition = 'object_distance'
-x_label = 'Vertical Distance (m)'
+x_label = 'Reading Distance (m)'
 y_label = 'Accuracy'
 scale = ['0.75', '0.85', '0.95']
 database = ['Legitimate', 'Illegitimate']

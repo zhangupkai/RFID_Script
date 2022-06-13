@@ -17,19 +17,19 @@ import math
 def deal_data(count1, count2):
     # distance = '50cm_right_10cm'
     # distance = '40cm'
-    # distance = '60cm_left_20cm'
+    # distance = '60cm_left_18cm'
     # distance = 'vertical'
 
     tag_pair = 'B034_B029'
     tag1 = 'B034'
     tag2 = 'B029'
 
-    # tag_pair = 'B016_B023'
-    # tag1 = 'B016'
+    # tag_pair = 'B018_B023'
+    # tag1 = 'B018'
     # tag2 = 'B023'
 
-    # tag_pair = 'B016_AA03'
-    # tag1 = 'B016'
+    # tag_pair = 'B018_AA03'
+    # tag1 = 'B018'
     # tag2 = 'AA03'
 
     # tag_pair = 'F001_F005'
@@ -84,25 +84,39 @@ def deal_data(count1, count2):
             phase -= 2 * math.pi
     phase_diff = np.abs(phase_diff)
 
-    # matplotlib.rcParams.update({'font.size': 12})  # 改变所有字体大小，改变其他性质类似
+    # matplotlib.rcParams.update({'font.size': 18})  # 改变所有字体大小，改变其他性质类似
 
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
-    plt.rc('font', family='Times New Roman', size=12, weight='bold')
+    plt.rc('font', family='Times New Roman', size=18, weight='bold')
 
-    sns.heatmap(phase_diff, cmap='Blues', xticklabels=get_freq_list(), yticklabels=get_degree_list())
+    ax = sns.heatmap(phase_diff, cmap='Blues', xticklabels=get_freq_list(),
+                yticklabels=['0', 'π/4', 'π/2', '3π/4', 'π', '5π/4', '3π/2', '7π/4', '2π'])
     # plt.title('Phase Diff ' + '' + ' ' + tag_pair + " " + count1 + count2)
 
     label_font = {
-        'size': 14,
+        'size': 18,
         'weight': 'bold'
     }
 
     plt.xlabel("Frequency (MHz)", fontdict=label_font)
-    plt.ylabel("Angle (°)", fontdict=label_font)
-    plt.xticks(rotation=45, size=12, weight='bold')
-    plt.yticks(rotation=0, size=12, weight='bold')
+    plt.ylabel("Angle (Rad)", fontdict=label_font)
+    plt.xticks(rotation=45, size=18, weight='bold')
+    plt.yticks(rotation=0, size=18, weight='bold')
+
+    # 设置colorbar的刻度字体大小
+    cax = plt.gcf().axes[-1]
+    cax.tick_params(labelsize=16)
+    # 设置colorbar的label文本和字体大小
+    cbar = ax.collections[0].colorbar
+    bar_font = {
+        'size': 18,
+        'weight': 'bold',
+        'family': 'Times New Roman'
+    }
+    cbar.set_label('Phase Difference (Rad)', fontdict=bar_font, labelpad=8.5)
+
     plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.pdf', bbox_inches='tight', dpi=600, format='pdf')
     plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.png', bbox_inches='tight')
     plt.show()

@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
 
 condition = 'tag_distance'
-x_label = 'Tag Distance (cm)'
+x_label = 'Paired Tag Distance (cm)'
 y_label = 'Accuracy'
 scale = ['1', '2', '3']
 database = ['Legitimate', 'Illegitimate']
