@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
+import matplotlib as mpl
 
 condition = 'covered_object_material'
-x_label = 'Obstacle Material'
-y_label = 'Accuracy'
-scale = ['LOS', 'glass', 'box', 'plastic']
+zhfont = mpl.font_manager.FontProperties(fname='D:\\Environment\\anaconda3\\Lib\\site-packages\\matplotlib\\mpl-data'
+                                               '\\fonts\\ttf\\SimSun.ttf')
+x_label = '天线和标签对之间障碍物的材质'
+y_label = '准确率'
+scale = ['视距', '玻璃板', '纸盒', '塑料板']
 database = ['Legitimate', 'Illegitimate']
 colorOfColum = ['#90C9E7', '#136783']
 size = ['//', '']
@@ -43,7 +46,7 @@ ax.legend(prop=legend_properties, shadow=False, framealpha=1, ncol=1, loc='lower
 
 ax.set_xlim(0, total_width * experiment_num)
 ax.xaxis.set_major_locator(FixedLocator([0.5 + i for i in range(len(data))]))
-ax.set_xticklabels(scale, fontproperties='Times New Roman', fontsize=30, fontweight='bold')
+ax.set_xticklabels(scale, fontproperties=zhfont, fontsize=30, fontweight='bold')
 ax.xaxis.set_minor_locator(MultipleLocator(total_width))
 
 ax.set_ylim(0, 1)
@@ -53,8 +56,8 @@ ax.set_yticks(ticks)
 # ax.grid(True)
 tickLabels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
 ax.set_yticklabels(tickLabels, fontproperties='Times New Roman', fontsize=30, fontweight='bold')
-ax.set_xlabel(x_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
-ax.set_ylabel(y_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_xlabel(x_label, fontproperties=zhfont, fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_ylabel(y_label, fontproperties=zhfont, fontsize=30, fontweight='bold', labelpad=8.5)
 plt.grid(axis="y", linestyle='--', linewidth=0.8, color='#e1e2e3', zorder=0)
 
 ax.spines['bottom'].set_linewidth(0.8)
@@ -67,10 +70,10 @@ ax.tick_params(axis='x', which='minor', length=0, width=0.8)
 ax.tick_params(axis='x', which='major', length=0, width=0.8)
 
 foo_fig = plt.gcf()  # 'get current figure'
-# foo_fig.savefig('distance.pdf', format='pdf', dpi=1000)
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.eps', format='eps', dpi=1000,
-                bbox_inches='tight')
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.png', format='png', dpi=1000,
+# # foo_fig.savefig('distance.pdf', format='pdf', dpi=1000)
+# foo_fig.savefig('D:/Graduate/Paper Writing/大论文/Figure/3_障碍物材质的影响.pdf', format='pdf', dpi=1000,
+#                 bbox_inches='tight')
+foo_fig.savefig(f'D:/Graduate/Paper Writing/大论文/Figure/3_障碍物材质的影响.png', format='png', dpi=400,
                 bbox_inches='tight')
 plt.show()
 

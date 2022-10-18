@@ -35,8 +35,8 @@ Group1.2 单个频率
 # tag1 = 'F001'
 # tag2 = 'E006'
 
-tag1 = 'E004'
-tag2 = 'E005'
+tag1 = 'D162'
+tag2 = 'D163'
 
 # tag1 = 'C001'
 # tag2 = 'C002'
@@ -51,7 +51,7 @@ tag2 = 'E005'
 # rotation_level = 'final_experiment/2_rotation_level/level_3'
 # rotation_level = 'final_experiment/3_object_distance/distance_3'
 # rotation_level = 'final_experiment/5_tag_type/type_1'
-rotation_level = 'final_experiment/6_interfer_tag_numbers/interfer_2'
+rotation_level = 'extra_experiment/test_facing/2_right_45'
 # rotation_level = 'final_experiment/7_object_material/material_2'
 is_grouped = False
 # is_hop = '_hop'
@@ -59,9 +59,10 @@ is_hop = ''
 
 # 间隔处理时间序列数据，distance较大时等需要使用
 is_inter_deal = True
-for count in range(6, 26):
+for count in range(1, 6):
 
-    bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0{is_hop}.csv'
+    # bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_25.0{is_hop}.csv'
+    bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}({count})_32.5_920.625.csv'
     df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'timestamp', 'phase', 'rssi'])
 
     if is_grouped is True:

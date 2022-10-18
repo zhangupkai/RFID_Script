@@ -28,11 +28,11 @@ Group1.3  8个不同频率下的数据
 # tag1 = 'E004'
 # tag2 = 'E005'
 
-tag1 = 'C001'
-tag2 = 'C002'
+# tag1 = 'C001'
+# tag2 = 'C002'
 
-# tag1 = 'C003'
-# tag2 = 'C004'
+tag1 = 'C003'
+tag2 = 'C004'
 
 # tag1 = 'F002'
 # tag2 = 'F003'
@@ -46,10 +46,11 @@ tag2 = 'C002'
 # rotation_level = 'final_experiment/7_object_material/material_2'
 # rotation_level = 'final_experiment/8_horizontal_offset/offset_3'
 # rotation_level = 'final_experiment/9_covered_object_material/material_2'
-rotation_level = 'final_experiment/10_room/room_2'
-rotation_level_abbr = '_c10_2'
+# rotation_level = 'final_experiment/10_room/room_2'
+rotation_level = 'object_experiment/object_5'
+rotation_level_abbr = '_object_5'
 
-is_expand_dataset = True
+is_expand_dataset = False
 
 # 为了扩充数据集，交叉互换不同组数据中的频率，swap_freq表示需要互换的频率
 # swap_freq_count = 0
@@ -171,7 +172,7 @@ if is_expand_dataset:
 
 
 else:
-    for count in range(30, 32):
+    for count in range(1, 6):
         # 最终得到的相位矩阵，9个角度（9行），8个频率（8列）
         phase_mat = np.zeros((9, 8))
 
@@ -196,8 +197,8 @@ else:
 
             try:
                 phase_orientation = locate_degree(timestamp, phase_after, f'{tag1}_{tag2}', freq)
-                if freq == 921.125 or freq == 921.625:
-                    phase_orientation = pre_phase_orientation
+                # if freq == 921.125 or freq == 921.625:
+                #     phase_orientation = pre_phase_orientation
                 pre_phase_orientation = phase_orientation
             except Exception:
                 phase_orientation = pre_phase_orientation
@@ -205,5 +206,6 @@ else:
             phase_mat[:, col] = np.array(phase_orientation)
             col += 1
 
-        save_path = f'{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
+        # save_path = f'{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
+        save_path = f'{rotation_level}/{tag1}_{tag2}{rotation_level_abbr}({count}).csv'
         np.savetxt(save_path, phase_mat, delimiter=',')

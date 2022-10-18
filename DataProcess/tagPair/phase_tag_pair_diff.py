@@ -9,6 +9,17 @@ import seaborn as sns
 from base_list import *
 import math
 
+from matplotlib import rcParams
+
+# config = {
+#     "font.family": 'serif',  # 衬线字体
+#     # "font.size": 12,  # 相当于小四大小
+#     "font.serif": ['SimSun'],  # 宋体
+#     "mathtext.fontset": 'stix',  # matplotlib渲染数学字体时使用的字体，和Times New Roman差别不大
+#     'axes.unicode_minus': False  # 处理负号，即-号
+# }
+# rcParams.update(config)
+
 """
 标签阵列中两个标签的相位差值
 """
@@ -86,24 +97,27 @@ def deal_data(count1, count2):
 
     # matplotlib.rcParams.update({'font.size': 18})  # 改变所有字体大小，改变其他性质类似
 
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    # plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 用来正常显示中文标签
+    # plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
     plt.rc('font', family='Times New Roman', size=18, weight='bold')
 
     ax = sns.heatmap(phase_diff, cmap='Blues', xticklabels=get_freq_list(),
-                yticklabels=['0', 'π/4', 'π/2', '3π/4', 'π', '5π/4', '3π/2', '7π/4', '2π'])
+                     yticklabels=['0', 'π/4', 'π/2', '3π/4', 'π', '5π/4', '3π/2', '7π/4', '2π'])
     # plt.title('Phase Diff ' + '' + ' ' + tag_pair + " " + count1 + count2)
 
     label_font = {
         'size': 18,
-        'weight': 'bold'
+        'weight': 'bold',
+        'family': 'SimSun'
     }
 
-    plt.xlabel("Frequency (MHz)", fontdict=label_font)
-    plt.ylabel("Angle (Rad)", fontdict=label_font)
-    plt.xticks(rotation=45, size=18, weight='bold')
-    plt.yticks(rotation=0, size=18, weight='bold')
+    # plt.xlabel("Frequency (MHz)", fontdict=label_font)
+    # plt.ylabel("Angle (Rad)", fontdict=label_font)
+    plt.xlabel("载波频率（MHz）", fontdict=label_font)
+    plt.ylabel("标签角度（Rad）", fontdict=label_font)
+    plt.xticks(rotation=45, size=18, weight='bold', family='Times New Roman')
+    plt.yticks(rotation=0, size=18, weight='bold', family='Times New Roman')
 
     # 设置colorbar的刻度字体大小
     cax = plt.gcf().axes[-1]
@@ -113,12 +127,15 @@ def deal_data(count1, count2):
     bar_font = {
         'size': 18,
         'weight': 'bold',
-        'family': 'Times New Roman'
+        'family': 'SimSun'
+        # 'family': 'Times New Roman'
     }
-    cbar.set_label('Phase Difference (Rad)', fontdict=bar_font, labelpad=8.5)
+    # cbar.set_label('Phase Difference (Rad)', fontdict=bar_font, labelpad=8.5)
+    cbar.set_label('相位差分（Rad）', fontdict=bar_font, labelpad=8.5)
 
-    plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.pdf', bbox_inches='tight', dpi=600, format='pdf')
-    plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.png', bbox_inches='tight')
+    # plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.pdf', bbox_inches='tight', dpi=600, format='pdf')
+    # plt.savefig('D:/Graduate/Paper Writing/matlab/my_code/fig/matrix.png', bbox_inches='tight')
+    plt.savefig('D:/Graduate/Paper Writing/大论文/Figure/3_特征矩阵.png', bbox_inches='tight', dpi=600)
     plt.show()
 
     np.savetxt(sava_path + '.csv', phase_diff, delimiter=',')

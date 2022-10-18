@@ -1,10 +1,15 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
 
+zhfont = matplotlib.font_manager.FontProperties(fname='D:\\Environment\\anaconda3\\Lib\\site-packages\\matplotlib\\mpl-data'
+                                               '\\fonts\\ttf\\SimSun.ttf')
 condition = 'object_distance'
-x_label = 'Reading Distance (m)'
-y_label = 'Accuracy'
+# x_label = 'Reading Distance (m)'
+# y_label = 'Accuracy'
+x_label = '天线和标签对之间读取距离（m）'
+y_label = '准确率'
 scale = ['0.75', '0.85', '0.95']
 database = ['Legitimate', 'Illegitimate']
 colorOfColum = ['#90C9E7', '#136783']
@@ -52,8 +57,8 @@ ax.set_yticks(ticks)
 # ax.grid(True)
 tickLabels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
 ax.set_yticklabels(tickLabels, fontproperties='Times New Roman', fontsize=30, fontweight='bold')
-ax.set_xlabel(x_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
-ax.set_ylabel(y_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_xlabel(x_label, fontproperties=zhfont, fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_ylabel(y_label, fontproperties=zhfont, fontsize=30, fontweight='bold', labelpad=8.5)
 plt.grid(axis="y", linestyle='--', linewidth=0.8, color='#e1e2e3', zorder=0)
 
 ax.spines['bottom'].set_linewidth(0.8)
@@ -66,10 +71,10 @@ ax.tick_params(axis='x', which='minor', length=0, width=0.8)
 ax.tick_params(axis='x', which='major', length=0, width=0.8)
 
 foo_fig = plt.gcf()  # 'get current figure'
-# foo_fig.savefig('distance.pdf', format='pdf', dpi=1000)
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.eps', format='eps', dpi=1000,
-                bbox_inches='tight')
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.png', format='png', dpi=1000,
+# # foo_fig.savefig('distance.pdf', format='pdf', dpi=1000)
+# foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.eps', format='eps', dpi=1000,
+#                 bbox_inches='tight')
+foo_fig.savefig(f'D:/Graduate/Paper Writing/大论文/Figure/3_读取距离的影响.png', format='png', dpi=400,
                 bbox_inches='tight')
 plt.show()
 

@@ -3,11 +3,12 @@ import numpy as np
 from matplotlib.ticker import MultipleLocator, FixedLocator
 
 condition = 'object_material'
-x_label = 'Object Material'
-y_label = 'Accuracy'
-scale = ['box', 'iron', 'yogurt', 'glass']
+x_label = '粘贴着标签对的待认证物品的材质'
+y_label = '准确率'
+scale = ['纸盒', '铁块', '酸奶', '玻璃杯']
 database = ['Legitimate', 'Illegitimate']
 colorOfColum = ['#90C9E7', '#136783']
+# colorOfColum = ['grey', '#136783']
 size = ['//', '']
 # colorOfColum = ['#B44DE0', '#4DBB9D', '#89CBF0', 'grey', '#EEBC4D']
 data = (
@@ -43,7 +44,7 @@ ax.legend(prop=legend_properties, shadow=False, framealpha=1, ncol=1, loc='lower
 
 ax.set_xlim(0, total_width * experiment_num)
 ax.xaxis.set_major_locator(FixedLocator([0.5 + i for i in range(len(data))]))
-ax.set_xticklabels(scale, fontproperties='Times New Roman', fontsize=30, fontweight='bold')
+ax.set_xticklabels(scale, fontproperties='SimSun', fontsize=30, fontweight='bold')
 ax.xaxis.set_minor_locator(MultipleLocator(total_width))
 
 ax.set_ylim(0, 1)
@@ -53,8 +54,8 @@ ax.set_yticks(ticks)
 # ax.grid(True)
 tickLabels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
 ax.set_yticklabels(tickLabels, fontproperties='Times New Roman', fontsize=30, fontweight='bold')
-ax.set_xlabel(x_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
-ax.set_ylabel(y_label, fontproperties='Times New Roman', fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_xlabel(x_label, fontproperties='SimSun', fontsize=30, fontweight='bold', labelpad=8.5)
+ax.set_ylabel(y_label, fontproperties='SimSun', fontsize=30, fontweight='bold', labelpad=8.5)
 plt.grid(axis="y", linestyle='--', linewidth=0.8, color='#e1e2e3', zorder=0)
 
 ax.spines['bottom'].set_linewidth(0.8)
@@ -68,9 +69,9 @@ ax.tick_params(axis='x', which='major', length=0, width=0.8)
 
 foo_fig = plt.gcf()  # 'get current figure'
 # foo_fig.savefig('distance.pdf', format='pdf', dpi=1000)
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.eps', format='eps', dpi=1000,
-                bbox_inches='tight')
-foo_fig.savefig(f'D:/Graduate/Paper Writing/matlab/my_code/fig/{condition}.png', format='png', dpi=1000,
+# foo_fig.savefig(f'D:/Graduate/Paper Writing/大论文/Figure/3_物品材质的影响.eps', format='eps', dpi=1000,
+#                 bbox_inches='tight')
+foo_fig.savefig(f'D:/Graduate/Paper Writing/大论文/Figure/3_物品材质的影响.png', format='png', dpi=400,
                 bbox_inches='tight')
 plt.show()
 

@@ -38,11 +38,11 @@ Group1.3  8个不同频率下的数据
 # tag1 = 'E004'
 # tag2 = 'E005'
 
-tag1 = 'C001'
-tag2 = 'C002'
+# tag1 = 'C001'
+# tag2 = 'C002'
 
-# tag1 = 'C003'
-# tag2 = 'C004'
+tag1 = 'C003'
+tag2 = 'C004'
 
 # tag1 = 'F002'
 # tag2 = 'F003'
@@ -56,12 +56,14 @@ tag2 = 'C002'
 # rotation_level = 'final_experiment/7_object_material/material_2'
 # rotation_level = 'final_experiment/8_horizontal_offset/offset_3'
 # rotation_level = 'final_experiment/9_covered_object_material/material_2'
-rotation_level = 'final_experiment/10_room/room_2'
+# rotation_level = 'final_experiment/10_room/room_2'
+rotation_level = 'object_experiment/object_5'
 is_inter_deal = True
 # count = 22
-for count in range(30, 32):
+for count in range(1, 6):
     for freq in get_freq_list():
-        bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_32.5_{freq}.csv'
+        bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}({count})_32.5_{freq}.csv'
+        # bath_dir = f'../../data/tagPair/{rotation_level}/{tag1}_{tag2}/{tag1}_{tag2}({count})_32.5_{freq}.csv'
         df = pd.read_csv(bath_dir, header=None, names=['epc', 'freq', 'timestamp', 'phase', 'rssi'])
 
         pre_epc = ''

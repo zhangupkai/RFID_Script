@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class ChangePowerConfig {
     // 阅读器地址：192.168.1.221
-    public static String hostname = "192.168.1.221";
+    public static String hostname = "192.168.0.220";
     // 天线端口选择  R220:{1,2}  R420:{1,2,3,4}
     public static short[] port = new short[]{1};
     // 传输功率设定(10 ~ 32.5, 间隔0.25，共91个可选功率)
@@ -23,7 +23,7 @@ public class ChangePowerConfig {
     public static String targetMask2 = "";
 
     // 采集的数据存放的位置
-    public static String filePath = "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\degree_180\\";
+    public static String filePath = "";
 
     // 读取时间 Level 1 => 6min, Level 2 => 3min, Level 4 => 1min
     public static long duration = 60 * 1000 * 3;
