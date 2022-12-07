@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 public class ChangePowerConfig {
     // 阅读器地址：192.168.1.221
-    public static String hostname = "192.168.0.220";
+//    public static String hostname = "192.168.0.220";
+    public static String hostname = "192.168.1.223";
     // 天线端口选择  R220:{1,2}  R420:{1,2,3,4}
     public static short[] port = new short[]{1};
     // 传输功率设定(10 ~ 32.5, 间隔0.25，共91个可选功率)

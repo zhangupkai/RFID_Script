@@ -27,3 +27,11 @@ hs_err_pid*
 
 # Data #
 data/
+DataProcess/auto_rotation/extra_experiment
+DataProcess/auto_rotation/final_experiment
+DataProcess/auto_rotation/object_experiment
+DataProcess/auto_rotation/phase_mat_data
+DataProcess/auto_rotation/phase_time_sequence
+DataProcess/auto_rotation/rssi_time_sequence
+
+DataProcess/tagPair/data

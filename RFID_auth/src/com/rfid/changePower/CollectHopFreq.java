@@ -141,6 +141,7 @@ public class CollectHopFreq{
             /*
             // Scanner Mode 1 Start：手动开始和结束扫描
             //开始扫描
+            System.out.println("------第" + count + "组------");
             System.out.println("在控制台敲击回车开始扫描.");
             System.out.println("再次敲击回车结束扫描.");
             Scanner s = new Scanner(System.in);
@@ -157,6 +158,8 @@ public class CollectHopFreq{
 
 
 
+
+
             // Scanner Mode 2 Start：自动开始，定时结束
             reader.start();
             // 定时自动结束
@@ -165,6 +168,8 @@ public class CollectHopFreq{
             Thread.sleep(500);
             reader.disconnect();
             // Scanner Mode 2 Finish
+
+
 
             myWriteFile("", TagInfoArray, count, msg);
 
@@ -206,7 +211,7 @@ public class CollectHopFreq{
     public static void main(String[] args) throws InterruptedException {
         String[] tags = new String[]{"D162", "D163"};
         String baseDir =
-                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\extra_experiment\\test_facing\\6_right_14\\";
+                "D:\\Coding\\RFID\\RFID_Script\\data\\tagPair\\extra_experiment\\rotation_offset_right_10\\";
         ChangePowerConfig.targetMask1 = tags[0];
         ChangePowerConfig.targetMask2 = tags[1];
         ChangePowerConfig.filePath = baseDir;
@@ -221,16 +226,28 @@ public class CollectHopFreq{
 //        }
 
         ChangePowerConfig.duration = Rotation.LEVEL4.getValue();
-//        for (int countN = 41; countN < 43 ; ++countN) {
+
+
         for (int countN = 1; countN < 6 ; ++countN) {
             double freq = 920.625;
 //            for (double freq = 920.625; freq <= 924.125; freq += 0.5) {
                 ChangePowerConfig.freq = freq;
-                msg = "_" + freq;
+//                msg = "_" + freq;
 
                 collect("(" + countN + ")",  msg);
 //            }
         }
+
+
+
+        /*
+        for (int cnt = 50; cnt < 51; ++cnt) {
+            collect("(" + cnt + ")", msg);
+        }
+
+         */
+
+
     }
 }
 
